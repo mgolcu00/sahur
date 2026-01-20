@@ -1,0 +1,113 @@
+GİZLİLİK POLİTİKASI
+
+Son güncelleme: 2026
+
+sahur – Ramazan Rehberi (“Uygulama”) uygulamasını kullandığınız için teşekkür ederiz.
+
+Gizliliğiniz bizim için önemlidir. Bu Gizlilik Politikası, sahur (“biz”, “bizim”) uygulamasını kullandığınızda bilgilerinizin nasıl ele alındığını açıklar.
+
+Uygulamayı kullanarak bu Gizlilik Politikası’nda açıklanan uygulamaları kabul etmiş olursunuz.
+
+--------------------------------------------------
+1. Topladığımız Bilgiler
+--------------------------------------------------
+
+sahur, gizlilik odaklı olarak tasarlanmıştır.  
+**Kişisel veri toplamaz, saklamaz veya paylaşmayız.**
+
+Uygulama, yalnızca temel işlevlerini sağlamak amacıyla aşağıdaki bilgilere erişebilir:
+
+• Konum bilgisi (isteğe bağlı)  
+Namaz vakitlerinin ve geri sayımların doğru hesaplanması için kullanılır.  
+Konum bilgileri yalnızca cihazınızda işlenir ve sunucularımıza gönderilmez.
+
+• Bildirim izni  
+Sahur, iftar veya namaz vakti hatırlatmaları göndermek için kullanılır.  
+Bildirim etkileşimleri takip edilmez.
+
+**Toplamadığımız veriler:**
+• İsim
+• E-posta adresi
+• Telefon numarası
+• Cihaz tanımlayıcıları
+• Kullanım analitiği
+• Reklam tanımlayıcıları
+
+--------------------------------------------------
+2. Bilgileri Nasıl Kullanıyoruz
+--------------------------------------------------
+
+Uygulama tarafından erişilen bilgiler yalnızca aşağıdaki amaçlarla kullanılır:
+
+• Doğru namaz vakitlerini göstermek  
+• Sahur ve iftar geri sayımlarını hesaplamak  
+• Kıble yönünü belirlemek (etkinleştirildiğinde)  
+• Tercihlerinize göre hatırlatmalar göndermek  
+
+Tüm işlemler cihazınız üzerinde gerçekleşir.
+
+--------------------------------------------------
+3. Veri Saklama
+--------------------------------------------------
+
+sahur, kişisel verileri harici sunucularda saklamaz.
+
+Uygulama ayarları (seçilen konum veya dil tercihi gibi) yalnızca cihazınızda saklanır ve uygulama verileri temizlenerek veya uygulama kaldırılarak silinebilir.
+
+--------------------------------------------------
+4. Veri Paylaşımı
+--------------------------------------------------
+
+Verilerinizi aşağıdaki taraflarla **paylaşmayız**:
+• Üçüncü taraf reklam sağlayıcıları
+• Analitik hizmetler
+• Veri aracları
+• Harici şirketler
+
+sahur, kullanıcı verilerini satmaz, kiralamaz veya ticaretini yapmaz.
+
+--------------------------------------------------
+5. Üçüncü Taraf Hizmetler
+--------------------------------------------------
+
+Uygulama, doğruluğu sağlamak amacıyla namaz vakitlerini güvenilir ve resmi kaynaklardan alabilir.
+
+Bu kaynaklarla **kişisel veya tanımlayıcı bilgi paylaşılmaz.**
+
+--------------------------------------------------
+6. Çocukların Gizliliği
+--------------------------------------------------
+
+sahur, 13 yaşın altındaki çocuklardan bilerek kişisel bilgi toplamaz.
+
+Kişisel veri toplanmadığı için uygulama genel kitle için güvenlidir.
+
+--------------------------------------------------
+7. Haklarınız
+--------------------------------------------------
+
+Kişisel veri toplanmadığı veya saklanmadığı için sunucularımızda erişilecek, değiştirilecek veya silinecek bir veri bulunmamaktadır.
+
+Şunları yapabilirsiniz:
+• Cihaz ayarlarından konum iznini kapatmak  
+• Bildirimleri dilediğiniz zaman devre dışı bırakmak  
+• Uygulamayı kaldırarak tüm yerel verileri silmek  
+
+--------------------------------------------------
+8. Gizlilik Politikası’ndaki Değişiklikler
+--------------------------------------------------
+
+Bu Gizlilik Politikası zaman zaman güncellenebilir.
+
+Değişiklikler, bu belgede yer alan “Son güncelleme” tarihi ile belirtilir.
+
+--------------------------------------------------
+9. İletişim
+--------------------------------------------------
+
+Bu Gizlilik Politikası hakkında sorularınız veya endişeleriniz varsa bizimle iletişime geçebilirsiniz:
+
+E-posta: mgolcu00@gmail.com
+--------------------------------------------------
+
+Hayırlı Ramazanlar 🌙
