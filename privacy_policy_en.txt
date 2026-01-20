@@ -1,0 +1,112 @@
+PRIVACY POLICY
+
+Last updated: 2026
+
+Thank you for using sahur – Ramadan Companion (“the App”).
+
+Your privacy is important to us. This Privacy Policy explains how sahur (“we”, “our”, or “us”) handles your information when you use the App.
+
+By using the App, you agree to the practices described in this Privacy Policy.
+
+--------------------------------------------------
+1. Information We Collect
+--------------------------------------------------
+
+sahur is designed with privacy in mind. We do NOT collect, store, or share personal data.
+
+The App may access the following information solely to provide core functionality:
+
+• Location data (optional)
+Used to calculate accurate prayer times and countdowns.
+Location data is processed locally on your device and is NOT sent to our servers.
+
+• Notification permission
+Used only to send reminders for Sahur, Iftar, or prayer times.
+We do not track notification interactions.
+
+We do NOT collect:
+• Names
+• Email addresses
+• Phone numbers
+• Device identifiers
+• Usage analytics
+• Advertising identifiers
+
+--------------------------------------------------
+2. How We Use Information
+--------------------------------------------------
+
+Any information accessed by the App is used only to:
+
+• Display accurate prayer times
+• Calculate Sahur and Iftar countdowns
+• Determine Qibla direction (if enabled)
+• Send reminders based on your preferences
+
+All processing happens locally on your device.
+
+--------------------------------------------------
+3. Data Storage
+--------------------------------------------------
+
+sahur does NOT store personal data on external servers.
+
+Any app settings (such as selected location or language preference) are stored locally on your device and can be removed by clearing the app data or uninstalling the App.
+
+--------------------------------------------------
+4. Data Sharing
+--------------------------------------------------
+
+We do NOT share your data with:
+• Third-party advertisers
+• Analytics providers
+• Data brokers
+• External services
+
+sahur does not sell, rent, or trade user data.
+
+--------------------------------------------------
+5. Third-Party Services
+--------------------------------------------------
+
+The App may retrieve prayer time data from trusted, official sources to ensure accuracy.
+
+No personal or identifiable information is shared with these sources.
+
+--------------------------------------------------
+6. Children’s Privacy
+--------------------------------------------------
+
+sahur does not knowingly collect personal information from children under the age of 13.
+
+Since no personal data is collected, the App is safe for general audiences.
+
+--------------------------------------------------
+7. Your Rights
+--------------------------------------------------
+
+Because we do not collect or store personal data, there is no personal information to access, modify, or delete on our servers.
+
+You can:
+• Disable location access in your device settings
+• Disable notifications at any time
+• Uninstall the App to remove all local data
+
+--------------------------------------------------
+8. Changes to This Policy
+--------------------------------------------------
+
+We may update this Privacy Policy from time to time.
+
+Any changes will be reflected in this document with an updated “Last updated” date.
+
+--------------------------------------------------
+9. Contact Us
+--------------------------------------------------
+
+If you have any questions or concerns about this Privacy Policy, please contact us:
+
+Email: mgolcu00@gmail.com
+--------------------------------------------------
+
+Ramadan Mubarak 🌙
