@@ -3,174 +3,386 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#0F172A">
+<meta name="theme-color" content="#0F1220">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Sahur</title>
 <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiU2FodXIgLSBSYW1hemFuIFlhcmTEsW1jxLFzxLEiLCJzaG9ydF9uYW1lIjoiU2FodXIiLCJkZXNjcmlwdGlvbiI6IlByYXllciB0aW1lcywgUXVyYW4sIGFuZCBJc2xhbWljIGNvbnRlbnQiLCJzdGFydF91cmwiOiIvIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiIzBGMTcyQSIsInRoZW1lX2NvbG9yIjoiIzBGMTcyQSIsIm9yaWVudGF0aW9uIjoicG9ydHJhaXQiLCJpY29ucyI6W119">
-<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="icon" type="image/svg+xml" href="public/icon.svg">
+<link rel="apple-touch-icon" href="public/icon.svg">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
---bg:#0F172A;--surface:#1E293B;--surface-elevated:#334155;--text-primary:#F8FAFC;--text-secondary:#94A3B8;--text-tertiary:#64748B;--accent:#F5C77A;--accent-light:#FAD99B;--accent-dark:#D4A85A;--outline:#334155;--success:#10B981;--warning:#F59E0B;--error:#EF4444;--radius:16px;--nav-h:64px;
+--bg:#0F1220;--surface:#171B2E;--surface-solid:#1A1F33;--surface-elevated:#222840;--text-primary:#F0F1F5;--text-secondary:#8B90A8;--text-tertiary:#555A72;--accent:#D4A54A;--accent-light:#E8C47A;--accent-dark:#B8882E;--accent-glow:rgba(212,165,74,.15);--accent-glow-strong:rgba(212,165,74,.25);--outline:rgba(255,255,255,.06);--outline-light:rgba(255,255,255,.03);--success:#10B981;--warning:#F59E0B;--error:#EF4444;--radius:18px;--nav-h:80px;
+--gradient-surface:linear-gradient(145deg,rgba(34,40,64,.6),rgba(23,27,46,.9));
+--gradient-accent:linear-gradient(135deg,#D4A54A,#B8882E);
+--gradient-glow:radial-gradient(ellipse at 50% 0%,rgba(212,165,74,.08),transparent 60%);
 }
 [data-theme="light"]{
---bg:#F8FAFC;--surface:#FFFFFF;--surface-elevated:#F1F5F9;--text-primary:#0F172A;--text-secondary:#475569;--text-tertiary:#94A3B8;--accent:#D4A85A;--outline:#E2E8F0;
+--bg:#F2F4F8;--surface:rgba(255,255,255,.92);--surface-solid:#FFFFFF;--surface-elevated:#E6E9F0;--text-primary:#0F1220;--text-secondary:#555A72;--text-tertiary:#8B90A8;--accent:#B8882E;--accent-light:#D4A54A;--accent-dark:#9A7024;--accent-glow:rgba(184,136,46,.1);--accent-glow-strong:rgba(184,136,46,.18);--outline:rgba(0,0,0,.07);--outline-light:rgba(0,0,0,.03);
+--gradient-surface:linear-gradient(145deg,rgba(255,255,255,.8),rgba(242,244,248,.95));
+--gradient-accent:linear-gradient(135deg,#B8882E,#9A7024);
+--gradient-glow:radial-gradient(ellipse at 50% 0%,rgba(184,136,46,.06),transparent 60%);
 }
-html{font-size:16px;-webkit-tap-highlight-color:transparent}
-body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--text-primary);min-height:100dvh;overflow-x:hidden;transition:background .3s,color .3s}
+html{font-size:16px;-webkit-tap-highlight-color:transparent;scroll-behavior:smooth}
+body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--text-primary);min-height:100dvh;overflow-x:hidden;transition:background .4s ease,color .3s}
+body::before{content:'';position:fixed;top:-40%;left:-20%;width:140%;height:80%;background:radial-gradient(ellipse,rgba(212,165,74,.04) 0%,transparent 70%);pointer-events:none;z-index:0}
+body::after{content:'';position:fixed;bottom:-20%;right:-20%;width:80%;height:60%;background:radial-gradient(ellipse,rgba(99,102,241,.03) 0%,transparent 70%);pointer-events:none;z-index:0}
 [dir="rtl"] body{font-family:'Noto Naskh Arabic','Nunito Sans',sans-serif}
 .arabic{font-family:'Noto Naskh Arabic',serif;direction:rtl;text-align:right;line-height:1.8;font-size:1.3em}
 a{color:inherit;text-decoration:none}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;font-size:inherit}
-input{font-family:inherit;color:inherit;background:var(--surface);border:1px solid var(--outline);border-radius:12px;padding:12px 16px;font-size:1rem;width:100%;outline:none}
-input:focus{border-color:var(--accent)}
+input{font-family:inherit;color:inherit;background:var(--surface-solid);border:1.5px solid var(--outline);border-radius:14px;padding:14px 18px;font-size:1rem;width:100%;outline:none;transition:border-color .2s,box-shadow .2s}
+input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
 ::-webkit-scrollbar{width:0;height:0}
-#app{padding-bottom:calc(var(--nav-h) + 16px);min-height:100dvh}
-.page{display:none;animation:fadeIn .2s ease}
+#app{padding-bottom:80px;min-height:100dvh;position:relative;z-index:1}
+.page{display:none;animation:pageIn .35s ease}
 .page.active{display:block}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pageIn{from{opacity:0;transform:translateY(10px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
 .container{padding:16px;max-width:480px;margin:0 auto}
-.card{background:var(--surface);border:1px solid var(--outline);border-radius:var(--radius);padding:16px;margin-bottom:12px}
-.card-accent{border-color:var(--accent);border-width:1.5px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:12px;font-weight:600;min-height:44px;min-width:44px;transition:all .2s}
-.btn-primary{background:var(--accent);color:#0F172A}
-.btn-primary:active{background:var(--accent-dark)}
-.btn-outline{border:1.5px solid var(--outline);color:var(--text-primary)}
-.btn-outline:active{background:var(--surface-elevated)}
-.chip{display:inline-flex;align-items:center;padding:8px 16px;border-radius:20px;font-size:.85rem;font-weight:600;border:1px solid var(--outline);white-space:nowrap;min-height:36px;transition:all .2s}
-.chip.active{background:var(--accent);color:#0F172A;border-color:var(--accent)}
-.header{display:flex;align-items:center;justify-content:space-between;padding:16px;padding-top:max(16px,env(safe-area-inset-top));position:sticky;top:0;z-index:50;background:var(--bg)}
-.header h1{font-size:1.1rem;font-weight:700}
-.header-btn{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px}
+/* Glass card */
+.card{background:var(--gradient-surface);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid var(--outline);border-radius:var(--radius);padding:18px;margin-bottom:12px;transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;inset:0;background:var(--gradient-glow);pointer-events:none;opacity:0;transition:opacity .3s}
+.card:active{transform:scale(.98)}
+.card:active::before{opacity:1}
+.card-accent{border-color:var(--accent);border-width:1.5px;box-shadow:0 0 24px var(--accent-glow),inset 0 1px 0 rgba(255,255,255,.05)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:14px;font-weight:700;min-height:48px;min-width:48px;transition:all .2s;letter-spacing:.02em}
+.btn-primary{background:var(--gradient-accent);color:#0F172A;box-shadow:0 4px 20px var(--accent-glow-strong),inset 0 1px 0 rgba(255,255,255,.2)}
+.btn-primary:active{transform:scale(.96);box-shadow:0 2px 8px var(--accent-glow)}
+.btn-outline{border:1.5px solid var(--outline);color:var(--text-primary);backdrop-filter:blur(10px)}
+.btn-outline:active{background:var(--surface-elevated);transform:scale(.96)}
+.chip{display:inline-flex;align-items:center;padding:8px 16px;border-radius:20px;font-size:.85rem;font-weight:600;border:1.5px solid var(--outline);white-space:nowrap;min-height:36px;transition:all .25s}
+.chip.active{background:var(--gradient-accent);color:#0F172A;border-color:var(--accent);box-shadow:0 2px 16px var(--accent-glow-strong);text-shadow:0 1px 0 rgba(0,0,0,.1)}
+/* Header with blur */
+.header{display:flex;align-items:center;justify-content:space-between;padding:16px;padding-top:max(16px,env(safe-area-inset-top));position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(20px) saturate(1.2);-webkit-backdrop-filter:blur(20px) saturate(1.2);border-bottom:1px solid var(--outline-light)}
+.header h1{font-size:1.1rem;font-weight:800;letter-spacing:-.01em}
+.header-btn{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;transition:background .2s}
 .header-btn:active{background:var(--surface)}
-/* Bottom Nav */
-#bottomNav{position:fixed;bottom:0;left:0;right:0;height:var(--nav-h);background:var(--surface);border-top:1px solid var(--outline);display:flex;align-items:center;justify-content:space-around;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
-#bottomNav .nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 12px;min-width:64px;min-height:44px;border-radius:12px;transition:all .2s;font-size:.7rem;font-weight:600;color:var(--text-tertiary)}
+/* Bottom Nav - glass */
+#bottomNav{position:fixed;bottom:0;left:0;right:0;height:var(--nav-h);background:var(--surface);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid var(--outline);display:flex;align-items:center;justify-content:space-around;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
+#bottomNav .nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 12px;min-width:64px;min-height:44px;border-radius:12px;transition:all .25s;font-size:.7rem;font-weight:600;color:var(--text-tertiary);position:relative}
 #bottomNav .nav-item.active{color:var(--accent)}
-#bottomNav .nav-item svg{width:24px;height:24px}
+#bottomNav .nav-item.active::after{content:'';position:absolute;bottom:2px;width:20px;height:3px;border-radius:2px;background:var(--accent);box-shadow:0 0 8px var(--accent-glow)}
+#bottomNav .nav-item svg{width:24px;height:24px;transition:transform .2s}
+#bottomNav .nav-item.active svg{transform:scale(1.1)}
 /* Modal */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;display:none;align-items:flex-end;justify-content:center}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:200;display:none;align-items:flex-end;justify-content:center}
 .modal-overlay.open{display:flex}
-.modal{background:var(--surface);border-radius:var(--radius) var(--radius) 0 0;width:100%;max-width:480px;max-height:80vh;overflow-y:auto;padding:24px 16px;animation:slideUp .3s ease}
+.modal{background:var(--surface-solid);border-radius:24px 24px 0 0;width:100%;max-width:480px;max-height:80vh;overflow-y:auto;padding:24px 16px;animation:slideUp .35s cubic-bezier(.32,.72,0,1);border-top:1px solid var(--outline)}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.modal h2{font-size:1.2rem;margin-bottom:16px}
-/* Loading */
+.modal h2{font-size:1.2rem;margin-bottom:16px;font-weight:800}
+/* Loading - skeleton */
 .loading{display:flex;align-items:center;justify-content:center;padding:40px;color:var(--text-secondary)}
-.spinner{width:32px;height:32px;border:3px solid var(--outline);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin-right:12px}
+.spinner{width:28px;height:28px;border:3px solid var(--outline);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin-right:12px}
 @keyframes spin{to{transform:rotate(360deg)}}
+.skeleton{background:linear-gradient(90deg,var(--surface-elevated) 25%,var(--outline) 50%,var(--surface-elevated) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:10px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 /* Prayer row */
-.prayer-scroll{display:flex;gap:8px;overflow-x:auto;padding:4px 0;-webkit-overflow-scrolling:touch}
-.prayer-card{flex:0 0 auto;text-align:center;padding:12px 16px;border-radius:12px;background:var(--surface);border:1px solid var(--outline);min-width:80px;transition:all .2s}
-.prayer-card.next{border-color:var(--accent);background:var(--accent);color:#0F172A}
-.prayer-card.passed{opacity:.5}
-.prayer-card .prayer-name{font-size:.75rem;font-weight:600;margin-bottom:4px}
-.prayer-card .prayer-time{font-size:.95rem;font-weight:700}
+.prayer-scroll{display:flex;gap:10px;overflow-x:auto;padding:4px 0;-webkit-overflow-scrolling:touch}
+.prayer-card{flex:0 0 auto;text-align:center;padding:14px 18px;border-radius:14px;background:var(--surface);backdrop-filter:blur(12px);border:1px solid var(--outline);min-width:85px;transition:all .3s}
+.prayer-card.next{border-color:var(--accent);background:var(--gradient-accent);color:#0F172A;box-shadow:0 4px 24px var(--accent-glow-strong),0 0 40px var(--accent-glow);transform:scale(1.05)}
+.prayer-card.passed{opacity:.4}
+.prayer-card .prayer-name{font-size:.72rem;font-weight:700;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
+.prayer-card .prayer-time{font-size:1rem;font-weight:800}
 /* Quick actions */
 .quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.quick-item{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px;background:var(--surface);border:1px solid var(--outline);border-radius:var(--radius);font-size:.78rem;font-weight:600;text-align:center;min-height:44px}
-.quick-item svg{width:28px;height:28px;color:var(--accent)}
-.quick-item:active{background:var(--surface-elevated)}
+.quick-item{display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 8px;background:var(--gradient-surface);backdrop-filter:blur(16px);border:1px solid var(--outline);border-radius:var(--radius);font-size:.78rem;font-weight:700;text-align:center;min-height:44px;transition:all .25s;position:relative;overflow:hidden}
+.quick-item::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:60%;height:1px;background:linear-gradient(90deg,transparent,var(--outline),transparent)}
+.quick-item svg,.quick-item i{width:28px;height:28px;font-size:1.4rem;color:var(--accent);transition:all .25s;filter:drop-shadow(0 2px 4px var(--accent-glow));display:flex;align-items:center;justify-content:center}
+.quick-item:active{background:var(--accent-glow);border-color:rgba(212,165,74,.15);transform:scale(.93)}
+.quick-item:active svg{transform:scale(1.15);color:var(--accent-light)}
 /* Surah list */
-.surah-item{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--outline);cursor:pointer}
+.surah-item{display:flex;align-items:center;gap:12px;padding:14px 4px;border-bottom:1px solid var(--outline);cursor:pointer;border-radius:10px;transition:background .15s}
 .surah-item:active{background:var(--surface-elevated)}
-.surah-num{width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:var(--surface-elevated);border-radius:8px;font-size:.85rem;font-weight:700;flex-shrink:0}
+.surah-num{width:42px;height:42px;display:flex;align-items:center;justify-content:center;background:var(--accent-glow);border:1.5px solid rgba(212,165,74,.15);border-radius:12px;font-size:.85rem;font-weight:800;flex-shrink:0;color:var(--accent);position:relative;transform:rotate(45deg)}
+.surah-num span{transform:rotate(-45deg)}
 .surah-info{flex:1;min-width:0}
-.surah-info .name{font-weight:600;font-size:.95rem}
-.surah-info .meta{font-size:.75rem;color:var(--text-secondary)}
-.surah-arabic{font-family:'Noto Naskh Arabic',serif;font-size:1.1rem;flex-shrink:0}
+.surah-info .name{font-weight:700;font-size:.95rem}
+.surah-info .meta{font-size:.75rem;color:var(--text-secondary);margin-top:2px}
+.surah-arabic{font-family:'Noto Naskh Arabic',serif;font-size:1.1rem;flex-shrink:0;color:var(--accent)}
 /* Verse display */
-.verse-block{padding:16px 0;border-bottom:1px solid var(--outline)}
-.verse-arabic{font-family:'Noto Naskh Arabic',serif;direction:rtl;text-align:right;font-size:1.4rem;line-height:2;margin-bottom:12px;color:var(--text-primary)}
-.verse-translation{font-size:.9rem;color:var(--text-secondary);line-height:1.6}
-.verse-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--accent);color:#0F172A;font-size:.75rem;font-weight:700;margin:0 4px}
+.verse-block{padding:18px 0;border-bottom:1px solid var(--outline)}
+.verse-arabic{font-family:'Noto Naskh Arabic',serif;direction:rtl;text-align:right;font-size:1.4rem;line-height:2.2;margin-bottom:12px;color:var(--text-primary)}
+.verse-translation{font-size:.9rem;color:var(--text-secondary);line-height:1.7}
+.verse-actions{display:flex;gap:8px;padding-top:10px;border-top:1px solid var(--outline-light);margin-top:10px}
+.verse-action-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:10px;background:var(--surface-elevated);border:1px solid var(--outline);color:var(--text-secondary);font-size:.78rem;font-weight:600;transition:all .2s}
+.verse-action-btn:active{background:var(--accent-glow);color:var(--accent);transform:scale(.95)}
+.verse-num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--gradient-accent);color:#0F172A;font-size:.75rem;font-weight:800;margin:0 4px;box-shadow:0 2px 8px var(--accent-glow)}
 /* Music */
-.music-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--outline);cursor:pointer}
-.music-item:active{opacity:.7}
-.music-cover{width:52px;height:52px;border-radius:10px;object-fit:cover;background:var(--surface-elevated);flex-shrink:0}
+.music-item{display:flex;align-items:center;gap:12px;padding:12px 4px;border-bottom:1px solid var(--outline);cursor:pointer;border-radius:10px;transition:background .15s}
+.music-item:active{background:var(--surface-elevated)}
+.music-cover{width:54px;height:54px;border-radius:14px;object-fit:cover;background:var(--surface-elevated);flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.15)}
 .music-info{flex:1;min-width:0}
-.music-info .title{font-weight:600;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.music-info .title{font-weight:700;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .music-info .artist{font-size:.8rem;color:var(--text-secondary)}
 .music-info .plays{font-size:.7rem;color:var(--text-tertiary)}
 /* Mini player */
-#miniPlayer{position:fixed;bottom:var(--nav-h);left:0;right:0;background:var(--surface-elevated);border-top:1px solid var(--outline);padding:8px 16px;display:none;align-items:center;gap:12px;z-index:90}
+#miniPlayer{position:fixed;bottom:var(--nav-h);left:0;right:0;background:var(--surface);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--outline);padding:10px 16px;display:none;align-items:center;gap:12px;z-index:90}
 #miniPlayer.show{display:flex}
-#miniPlayer img{width:40px;height:40px;border-radius:8px}
+#miniPlayer img{width:42px;height:42px;border-radius:10px}
 #miniPlayer .mp-info{flex:1;min-width:0}
-#miniPlayer .mp-title{font-size:.85rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#miniPlayer .mp-title{font-size:.85rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #miniPlayer .mp-artist{font-size:.75rem;color:var(--text-secondary)}
-#miniPlayer .mp-btn{width:40px;height:40px;display:flex;align-items:center;justify-content:center}
+#miniPlayer .mp-btn{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--accent-glow);transition:background .2s}
+#miniPlayer .mp-btn:active{background:var(--accent);color:#0F172A}
 /* Full player */
 #fullPlayer{position:fixed;inset:0;background:var(--bg);z-index:300;display:none;flex-direction:column}
-#fullPlayer.open{display:flex}
+#fullPlayer.open{display:flex;animation:pageIn .3s ease}
 .fp-header{display:flex;align-items:center;justify-content:space-between;padding:16px}
-.fp-cover{width:280px;height:280px;border-radius:20px;margin:20px auto;object-fit:cover;background:var(--surface)}
+.fp-cover{width:280px;height:280px;border-radius:24px;margin:20px auto;object-fit:cover;background:var(--surface);box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 0 1px var(--outline)}
 .fp-info{text-align:center;padding:0 24px;margin-bottom:20px}
-.fp-info .title{font-size:1.2rem;font-weight:700}
+.fp-info .title{font-size:1.2rem;font-weight:800}
 .fp-info .artist{color:var(--text-secondary);margin-top:4px}
 .fp-seek{padding:0 24px;margin-bottom:12px}
 .fp-seek input[type=range]{width:100%;-webkit-appearance:none;height:4px;border-radius:2px;background:var(--outline);outline:none;border:none;padding:0}
-.fp-seek input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--accent);cursor:pointer}
+.fp-seek input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);cursor:pointer;box-shadow:0 0 8px var(--accent-glow)}
 .fp-times{display:flex;justify-content:space-between;font-size:.75rem;color:var(--text-secondary);padding:0 24px}
 .fp-controls{display:flex;align-items:center;justify-content:center;gap:32px;padding:20px}
-.fp-controls .play-btn{width:64px;height:64px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center}
+.fp-controls .play-btn{width:68px;height:68px;border-radius:50%;background:var(--gradient-accent);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px var(--accent-glow-strong),0 0 0 4px var(--accent-glow);transition:transform .15s}
+.fp-controls .play-btn:active{transform:scale(.92)}
 .fp-controls button{min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center}
 /* Dhikr */
-.dhikr-tap{width:200px;height:200px;border-radius:50%;margin:24px auto;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;position:relative;user-select:none;-webkit-user-select:none}
-.dhikr-tap .count{font-size:3rem;font-weight:800;color:var(--accent)}
-.dhikr-tap .label{font-size:.85rem;color:var(--text-secondary)}
+.dhikr-tap{width:230px;height:230px;border-radius:50%;margin:24px auto;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;position:relative;user-select:none;-webkit-user-select:none;transition:transform .15s;background:var(--gradient-surface);border:1px solid var(--outline);box-shadow:0 8px 40px rgba(0,0,0,.15),inset 0 1px 0 rgba(255,255,255,.03)}
+.dhikr-tap:active{transform:scale(.93);box-shadow:0 4px 20px rgba(0,0,0,.1),0 0 40px var(--accent-glow)}
+.dhikr-tap .count{font-size:3.4rem;font-weight:900;color:var(--accent);text-shadow:0 0 30px var(--accent-glow)}
+.dhikr-tap .label{font-size:.85rem;color:var(--text-secondary);font-weight:600}
 .dhikr-progress{position:absolute;inset:-4px;border-radius:50%}
 /* Compass */
 .compass-wrap{width:260px;height:260px;margin:20px auto;position:relative}
-.compass-ring{width:100%;height:100%;border-radius:50%;border:3px solid var(--outline);position:relative;transition:transform .3s}
-.compass-n{position:absolute;top:8px;left:50%;transform:translateX(-50%);font-weight:700;color:var(--error);font-size:1.1rem}
-.qibla-arrow{position:absolute;top:50%;left:50%;width:4px;height:100px;background:var(--accent);transform-origin:bottom center;border-radius:2px;margin-left:-2px;margin-top:-100px}
+.compass-ring{width:100%;height:100%;border-radius:50%;border:3px solid var(--outline);position:relative;transition:transform .3s;background:var(--surface);backdrop-filter:blur(12px)}
+.compass-n{position:absolute;top:8px;left:50%;transform:translateX(-50%);font-weight:800;color:var(--error);font-size:1.1rem}
+.qibla-arrow{position:absolute;top:50%;left:50%;width:4px;height:100px;background:linear-gradient(to top,var(--accent),var(--accent-light));transform-origin:bottom center;border-radius:2px;margin-left:-2px;margin-top:-100px;box-shadow:0 0 12px var(--accent-glow)}
 /* Settings */
-.setting-row{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--outline)}
-.setting-row .label{font-weight:600}
+.setting-row{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--outline);gap:12px}
+.setting-row .label{font-weight:700}
 .setting-row .value{color:var(--text-secondary);font-size:.9rem}
-.toggle{width:52px;height:28px;border-radius:14px;background:var(--outline);position:relative;cursor:pointer;transition:background .2s}
+.toggle{width:52px;height:28px;border-radius:14px;background:var(--outline);position:relative;cursor:pointer;transition:background .25s;flex-shrink:0}
 .toggle.on{background:var(--accent)}
-.toggle::after{content:'';position:absolute;width:24px;height:24px;border-radius:50%;background:#fff;top:2px;left:2px;transition:transform .2s}
+.toggle::after{content:'';position:absolute;width:24px;height:24px;border-radius:50%;background:#fff;top:2px;left:2px;transition:transform .25s cubic-bezier(.4,.0,.2,1);box-shadow:0 2px 4px rgba(0,0,0,.15)}
 .toggle.on::after{transform:translateX(24px)}
 /* Imsakiye table */
 .imsakiye-table{width:100%;border-collapse:collapse;font-size:.75rem}
-.imsakiye-table th{padding:8px 4px;background:var(--surface-elevated);font-weight:700;position:sticky;top:0}
-.imsakiye-table td{padding:8px 4px;text-align:center;border-bottom:1px solid var(--outline)}
-.imsakiye-table tr.today{background:var(--accent);color:#0F172A}
-.imsakiye-table tr.today td{font-weight:700}
+.imsakiye-table th{padding:10px 4px;background:var(--surface-elevated);font-weight:800;position:sticky;top:0;text-transform:uppercase;letter-spacing:.04em;font-size:.7rem}
+.imsakiye-table td{padding:10px 4px;text-align:center;border-bottom:1px solid var(--outline)}
+.imsakiye-table tr.today{background:linear-gradient(135deg,var(--accent),var(--accent-dark));color:#0F172A}
+.imsakiye-table tr.today td{font-weight:800}
 /* Onboarding */
 #onboarding{position:fixed;inset:0;background:var(--bg);z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
-#onboarding h1{font-size:2rem;margin-bottom:8px;color:var(--accent)}
-#onboarding p{color:var(--text-secondary);margin-bottom:32px;max-width:300px}
-#onboarding .ob-btns{display:flex;flex-direction:column;gap:12px;width:100%;max-width:300px}
+#onboarding::before{content:'';position:absolute;top:20%;left:50%;transform:translateX(-50%);width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,var(--accent-glow-strong),transparent 70%);pointer-events:none;animation:splashGlow 3s ease infinite}
+#onboarding h1{font-size:2.6rem;margin-bottom:8px;color:var(--accent);font-weight:900;position:relative;text-shadow:0 0 40px var(--accent-glow)}
+#onboarding p{color:var(--text-secondary);margin-bottom:32px;max-width:300px;position:relative;line-height:1.6}
+#onboarding .ob-btns{display:flex;flex-direction:column;gap:12px;width:100%;max-width:300px;position:relative}
 /* Special Days */
-.special-day-card{display:flex;align-items:center;gap:12px;padding:14px;background:var(--surface);border:1px solid var(--outline);border-radius:var(--radius);margin-bottom:10px}
-.special-day-card.past{opacity:.5}
-.special-day-card.today-card{border-color:var(--accent);border-width:2px}
-.sdc-date{width:48px;height:48px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--surface-elevated);border-radius:10px;flex-shrink:0}
-.sdc-date .day{font-size:1.2rem;font-weight:800}
-.sdc-date .month{font-size:.65rem;color:var(--text-secondary);text-transform:uppercase}
+.special-day-card{display:flex;align-items:center;gap:12px;padding:14px;background:var(--surface);backdrop-filter:blur(12px);border:1px solid var(--outline);border-radius:var(--radius);margin-bottom:10px;transition:transform .2s}
+.special-day-card:active{transform:scale(.98)}
+.special-day-card.past{opacity:.4}
+.special-day-card.today-card{border-color:var(--accent);border-width:2px;box-shadow:0 0 24px var(--accent-glow-strong),inset 0 1px 0 rgba(255,255,255,.05)}
+.sdc-date{width:52px;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--accent-glow);border:1.5px solid var(--outline);border-radius:12px;flex-shrink:0}
+.sdc-date .day{font-size:1.3rem;font-weight:800;color:var(--accent)}
+.sdc-date .month{font-size:.65rem;color:var(--text-secondary);text-transform:uppercase;font-weight:700}
 .sdc-info{flex:1}
-.sdc-info .name{font-weight:700;font-size:.95rem}
+.sdc-info .name{font-weight:800;font-size:.95rem}
 .sdc-info .hijri{font-size:.8rem;color:var(--text-secondary)}
-.sdc-info .countdown{font-size:.75rem;color:var(--accent);font-weight:600;margin-top:2px}
+.sdc-info .countdown{font-size:.75rem;color:var(--accent);font-weight:700;margin-top:2px}
 /* Bookmark */
-.bookmark-item{background:var(--surface);border:1px solid var(--outline);border-radius:var(--radius);padding:14px;margin-bottom:10px;position:relative}
-.bookmark-item .badge{display:inline-block;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--accent);color:#0F172A;margin-bottom:6px}
-.bookmark-item .bk-title{font-weight:600;margin-bottom:4px}
-.bookmark-item .bk-content{font-size:.85rem;color:var(--text-secondary);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.bookmark-item{background:var(--surface);backdrop-filter:blur(12px);border:1px solid var(--outline);border-radius:var(--radius);padding:16px;margin-bottom:10px;position:relative;transition:transform .2s}
+.bookmark-item:active{transform:scale(.98)}
+.bookmark-item .badge{display:inline-block;font-size:.7rem;font-weight:800;padding:3px 10px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-dark));color:#0F172A;margin-bottom:8px}
+.bookmark-item .bk-title{font-weight:700;margin-bottom:4px}
+.bookmark-item .bk-content{font-size:.85rem;color:var(--text-secondary);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.6}
 .bookmark-item .bk-delete{position:absolute;top:12px;right:12px;color:var(--error);width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:8px}
 .bookmark-item .bk-delete:active{background:var(--surface-elevated)}
 /* Empty */
 .empty-state{text-align:center;padding:60px 20px;color:var(--text-secondary)}
-.empty-state svg{width:64px;height:64px;margin-bottom:16px;opacity:.4}
-.empty-state p{margin-top:8px;font-size:.9rem}
+.empty-state svg{width:64px;height:64px;margin-bottom:16px;opacity:.3}
+.empty-state p{margin-top:8px;font-size:.9rem;line-height:1.5}
 /* Tabs */
 .tab-bar{display:flex;gap:8px;padding:0 16px;overflow-x:auto;margin-bottom:12px}
+/* Stagger animation */
+.stagger>*{opacity:0;animation:staggerIn .4s ease forwards}
+.stagger>*:nth-child(1){animation-delay:0s}
+.stagger>*:nth-child(2){animation-delay:.05s}
+.stagger>*:nth-child(3){animation-delay:.1s}
+.stagger>*:nth-child(4){animation-delay:.15s}
+.stagger>*:nth-child(5){animation-delay:.2s}
+.stagger>*:nth-child(6){animation-delay:.25s}
+.stagger>*:nth-child(7){animation-delay:.3s}
+.stagger>*:nth-child(8){animation-delay:.35s}
+.stagger>*:nth-child(9){animation-delay:.4s}
+@keyframes staggerIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+/* Share btn */
+.share-btn{color:var(--accent);font-size:.8rem;font-weight:700;padding:4px 0;display:inline-flex;align-items:center;gap:4px;transition:opacity .2s}
+.share-btn:active{opacity:.6}
+/* Prayer log */
+.prayer-log-grid{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.prayer-log-item{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 12px;border-radius:12px;border:1.5px solid var(--outline);min-width:56px;transition:all .2s;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+.prayer-log-item.done{border-color:var(--success);background:rgba(16,185,129,.12);color:var(--success);box-shadow:0 2px 8px rgba(16,185,129,.15)}
+.prayer-log-item svg{width:20px;height:20px}
+/* Dua card */
+.dua-card{background:var(--gradient-surface);backdrop-filter:blur(20px);border:1px solid var(--outline);border-radius:var(--radius);padding:20px;margin-bottom:12px;transition:transform .2s;position:relative;overflow:hidden}
+.dua-card::before{content:'';position:absolute;top:0;right:0;width:120px;height:120px;background:radial-gradient(circle,var(--accent-glow),transparent 70%);pointer-events:none;opacity:.4}
+.dua-card:active{transform:scale(.98)}
+.dua-card .dua-title{font-weight:800;margin-bottom:10px;color:var(--accent);font-size:.9rem;letter-spacing:.02em}
+.dua-card .dua-arabic{font-family:'Noto Naskh Arabic',serif;direction:rtl;text-align:right;font-size:1.2rem;line-height:2;margin-bottom:8px}
+.dua-card .dua-trans{font-size:.85rem;color:var(--text-secondary);line-height:1.6;margin-bottom:4px}
+.dua-card .dua-translit{font-size:.8rem;color:var(--text-tertiary);font-style:italic}
+/* Splash */
+#splash{position:fixed;inset:0;background:var(--bg);z-index:999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;transition:opacity .5s;pointer-events:none}
+#splash::before{content:'';position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,var(--accent-glow-strong),transparent 70%);animation:splashGlow 2s ease infinite}
+#splash.hide{opacity:0}
+#splash .splash-title{font-size:2.2rem;font-weight:900;color:var(--accent);position:relative;text-shadow:0 0 40px var(--accent-glow-strong);animation:splashPulse 1.5s ease infinite}
+#splash .splash-sub{font-size:.85rem;color:var(--text-tertiary);font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+@keyframes splashPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.7;transform:scale(.98)}}
+@keyframes splashGlow{0%,100%{opacity:.4;transform:translate(-50%,-50%) scale(1)}50%{opacity:.7;transform:translate(-50%,-50%) scale(1.1)}}
+/* PWA install */
+#installBanner{position:fixed;top:16px;left:16px;right:16px;max-width:448px;margin:0 auto;background:var(--surface-solid);border:1.5px solid var(--accent);border-radius:var(--radius);padding:16px;z-index:400;display:none;align-items:center;gap:12px;box-shadow:0 8px 32px rgba(0,0,0,.3);animation:slideDown .3s ease}
+#installBanner.show{display:flex}
+@keyframes slideDown{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}
+/* Ramadan banner */
+.ramadan-banner{background:linear-gradient(135deg,var(--accent-glow-strong),var(--accent-glow));border:1.5px solid rgba(212,165,74,.25);border-radius:var(--radius);padding:20px;text-align:center;margin-bottom:14px;position:relative;overflow:hidden;box-shadow:0 4px 20px var(--accent-glow)}
+.ramadan-banner::before{content:'☪';position:absolute;top:-10px;right:-10px;font-size:5rem;opacity:.06;pointer-events:none}
+.ramadan-banner .rb-title{font-size:.85rem;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.ramadan-banner .rb-day{font-size:1.8rem;font-weight:800;color:var(--accent)}
+.ramadan-banner .rb-label{font-size:.8rem;color:var(--text-secondary)}
+
+/* ===== REDESIGNED HOME ===== */
+.home-top{display:flex;align-items:center;justify-content:space-between;padding:12px 0;margin-bottom:4px}
+.loc-chip{display:inline-flex;align-items:center;gap:6px;padding:10px 16px;border-radius:24px;background:var(--gradient-surface);backdrop-filter:blur(12px);border:1px solid var(--outline);font-size:.88rem;font-weight:700;color:var(--text-primary);cursor:pointer;transition:all .25s;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.loc-chip:active{background:var(--surface-elevated);transform:scale(.97)}
+.loc-chip svg{color:var(--accent);flex-shrink:0}
+.home-top-actions{display:flex;gap:8px}
+.top-icon-btn{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:var(--gradient-surface);backdrop-filter:blur(12px);border:1px solid var(--outline);color:var(--text-secondary);transition:all .25s;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.top-icon-btn:active{background:var(--accent-glow-strong);color:var(--accent);border-color:rgba(212,165,74,.2);transform:scale(.92)}
+
+.home-date{text-align:center;padding:8px 0 16px}
+.home-day{font-size:1.9rem;font-weight:900;letter-spacing:-.03em;background:linear-gradient(180deg,var(--text-primary),var(--text-secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.home-greg{font-size:.95rem;color:var(--text-secondary);margin-top:2px}
+.hijri-chip{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:20px;background:var(--accent-glow);border:1px solid rgba(212,165,74,.15);font-size:.82rem;font-weight:700;color:var(--accent);margin-top:10px;cursor:pointer;transition:all .25s}
+.hijri-chip:active{background:var(--accent-glow-strong);transform:scale(.97)}
+
+/* Prayer timeline icons */
+.prayer-timeline{margin-bottom:8px}
+.pt-icons{display:flex;justify-content:space-around;align-items:flex-end;padding:0 4px;margin-bottom:10px}
+.pt-item{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1}
+.pt-item.passed{color:var(--accent)}
+.pt-item.active{color:var(--accent)}
+.pt-item:not(.passed):not(.active){color:var(--text-tertiary)}
+.pt-icon{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:all .2s}
+.pt-icon svg,.pt-icon i{width:22px;height:22px;font-size:1rem;display:flex;align-items:center;justify-content:center}
+.pt-icon.active{width:42px;height:42px;background:var(--accent-glow-strong);border:1.5px solid rgba(212,165,74,.4);box-shadow:0 0 16px var(--accent-glow)}
+.pt-icon.active svg{width:26px;height:26px;color:var(--accent)}
+.pt-time{font-size:.78rem;font-weight:700}
+.pt-item.active .pt-time{font-size:.88rem;font-weight:800;color:var(--accent)}
+.pt-progress{display:flex;gap:4px;padding:0 4px}
+.pt-bar{flex:1;height:4px;border-radius:2px;background:var(--surface-elevated);overflow:hidden}
+.pt-fill{height:100%;border-radius:2px;background:var(--accent);transition:width .5s ease}
+
+/* Countdown section */
+.countdown-section{text-align:center;padding:20px 0 24px;position:relative}
+.countdown-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,var(--accent-glow-strong) 0%,transparent 70%);pointer-events:none;opacity:.5}
+.cd-label{font-size:.85rem;font-weight:800;color:var(--accent);margin-bottom:8px;text-transform:uppercase;letter-spacing:.08em;position:relative}
+.cd-time{font-size:3.4rem;font-weight:900;letter-spacing:-.03em;color:var(--text-primary);line-height:1;position:relative;background:linear-gradient(180deg,var(--text-primary) 40%,var(--text-secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cd-sub{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:20px;background:var(--surface-elevated);border:1px solid var(--outline);font-size:.78rem;color:var(--text-secondary);margin-top:12px;font-weight:600;position:relative;backdrop-filter:blur(8px)}
+
+/* Prayer list card */
+.prayer-list-card{background:var(--gradient-surface);backdrop-filter:blur(20px);border-radius:var(--radius);border:1px solid var(--outline);overflow:hidden;margin-bottom:14px;position:relative}
+.prayer-list-card::before{content:'';position:absolute;inset:0;background:var(--gradient-glow);pointer-events:none}
+.pl-row{display:flex;align-items:center;padding:16px 20px;gap:14px;border-bottom:1px solid var(--outline-light);transition:all .25s;position:relative}
+.pl-row:last-child{border-bottom:none}
+.pl-row.active{background:linear-gradient(90deg,var(--accent-glow-strong),transparent)}
+.pl-row.active::before{content:'';position:absolute;left:0;top:20%;bottom:20%;width:3px;border-radius:0 2px 2px 0;background:var(--accent);box-shadow:0 0 12px var(--accent-glow-strong)}
+.pl-icon{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:12px;color:var(--text-tertiary);flex-shrink:0;transition:all .25s}
+.pl-icon svg,.pl-icon i{width:22px;height:22px;font-size:1rem;display:flex;align-items:center;justify-content:center}
+.pl-icon.active{background:var(--accent-glow-strong);border:1.5px solid rgba(212,165,74,.3);color:var(--accent);box-shadow:0 0 16px var(--accent-glow)}
+.pl-name{flex:1;font-size:.95rem;font-weight:600;color:var(--text-secondary);transition:color .2s}
+.pl-row.active .pl-name{color:var(--text-primary);font-weight:800}
+.pl-time{font-size:1.05rem;font-weight:700;color:var(--text-tertiary);font-variant-numeric:tabular-nums;transition:color .2s}
+.pl-row.active .pl-time{color:var(--accent);font-weight:800;text-shadow:0 0 20px var(--accent-glow)}
+
+/* Upcoming event bar */
+.upcoming-bar{margin-bottom:14px}
+.upcoming-inner{display:flex;align-items:center;gap:12px;padding:16px 18px;background:var(--gradient-surface);backdrop-filter:blur(16px);border:1px solid var(--outline);border-radius:var(--radius);cursor:pointer;transition:all .25s}
+.upcoming-inner:active{background:var(--accent-glow);transform:scale(.98)}
+.up-icon{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:var(--accent-glow-strong);border:1px solid rgba(212,165,74,.2);color:var(--accent);flex-shrink:0;box-shadow:0 2px 8px var(--accent-glow)}
+.up-info{flex:1}
+.up-label{font-size:.72rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.05em}
+.up-name{font-size:.95rem;font-weight:700;color:var(--text-primary)}
+.up-days{width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--gradient-accent);color:#0F172A;font-size:.85rem;font-weight:800;flex-shrink:0;box-shadow:0 2px 10px var(--accent-glow-strong)}
+
+/* ===== FLOATING NAV ===== */
+#bottomNav{position:fixed;bottom:0;left:0;right:0;height:auto;background:none;border:none;display:flex;align-items:center;justify-content:center;z-index:100;padding:0 0 max(12px,env(safe-area-inset-bottom));pointer-events:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+.nav-pill{display:flex;align-items:center;justify-content:center;gap:4px;background:var(--surface-solid);border:1px solid var(--outline);border-radius:28px;padding:6px 8px;pointer-events:auto;box-shadow:0 8px 40px rgba(0,0,0,.4),0 0 0 1px var(--outline);backdrop-filter:blur(24px) saturate(1.3)}
+#bottomNav .nav-item{display:flex;align-items:center;gap:6px;padding:10px 14px;border-radius:22px;transition:all .25s;font-size:.82rem;font-weight:700;color:var(--text-tertiary);position:relative;min-width:auto;min-height:auto;flex-direction:row}
+#bottomNav .nav-item::after{display:none}
+#bottomNav .nav-item.active{background:var(--surface-elevated);color:var(--accent)}
+#bottomNav .nav-item.active .nav-label{display:inline}
+#bottomNav .nav-item .nav-label{display:none}
+#bottomNav .nav-item svg,#bottomNav .nav-item i{width:22px;height:22px;font-size:1.15rem;transform:none;display:flex;align-items:center;justify-content:center}
+
+/* ===== DAILY VERSE / HADITH CARDS ===== */
+.daily-card{background:var(--gradient-surface);backdrop-filter:blur(24px);border:1px solid var(--outline);border-left:3px solid var(--accent);border-radius:var(--radius);padding:22px;margin-bottom:0;position:relative;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.12)}
+.daily-card::before{content:'';position:absolute;top:0;left:0;right:0;height:120px;background:radial-gradient(ellipse at 20% 0%,var(--accent-glow),transparent 70%);pointer-events:none}
+.daily-card::after{content:'';position:absolute;bottom:0;right:0;width:200px;height:200px;background:radial-gradient(circle at 100% 100%,rgba(99,102,241,.03),transparent 70%);pointer-events:none}
+.dc-header{display:flex;align-items:center;gap:12px;margin-bottom:4px;position:relative}
+.dc-icon{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:var(--accent-glow-strong);border:1px solid rgba(212,165,74,.25);color:var(--accent);flex-shrink:0;box-shadow:0 2px 12px var(--accent-glow)}
+.dc-title-wrap{flex:1;min-width:0}
+.dc-title{font-size:1rem;font-weight:800;color:var(--text-primary);letter-spacing:-.01em}
+.dc-subtitle{font-size:.8rem;color:var(--accent);font-weight:600;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dc-actions{display:flex;gap:6px;flex-shrink:0}
+.dc-action-btn{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1.5px solid var(--outline);color:var(--text-tertiary);transition:all .25s;background:none}
+.dc-action-btn:active{background:var(--accent-glow-strong);color:var(--accent);border-color:var(--accent);transform:scale(.92)}
+.dc-divider{display:flex;align-items:center;gap:0;padding:16px 0}
+.dc-divider::before,.dc-divider::after{content:'';flex:1;height:1px;background:linear-gradient(to right,transparent,var(--outline),transparent)}
+.dc-divider span{width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.4;flex-shrink:0;margin:0 10px}
+.dc-arabic{font-family:'Noto Naskh Arabic',serif;direction:rtl;text-align:center;font-size:1.4rem;line-height:2.2;color:var(--text-primary);padding:4px 12px;position:relative}
+.dc-translation{font-size:.93rem;color:var(--text-secondary);line-height:1.8;text-align:center;padding:4px 12px;font-style:italic}
+.dc-source{font-size:.82rem;color:var(--accent);text-align:center;margin-top:14px;font-weight:700;letter-spacing:.02em}
+/* ===== RISALE ===== */
+.risale-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.risale-book-card{background:var(--gradient-surface);backdrop-filter:blur(16px);border:1px solid var(--outline);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .25s}
+.risale-book-card:active{transform:scale(.96)}
+.rbc-cover{width:100%;aspect-ratio:.72;background:var(--surface-elevated);position:relative;overflow:hidden}
+.rbc-cover img{width:100%;height:100%;object-fit:cover}
+.rbc-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2.5rem;color:var(--accent);background:var(--surface-elevated)}
+.rbc-name{padding:12px 10px;font-size:.82rem;font-weight:700;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.section-item{display:flex;align-items:center;gap:12px;padding:14px;background:var(--gradient-surface);backdrop-filter:blur(16px);border:1px solid var(--outline);border-radius:14px;cursor:pointer;transition:all .25s;margin-bottom:8px}
+.section-item:active{transform:scale(.98);background:var(--accent-glow)}
+.si-num{width:38px;height:38px;display:flex;align-items:center;justify-content:center;background:var(--accent-glow-strong);border:1px solid rgba(212,165,74,.15);border-radius:10px;font-weight:800;color:var(--accent);flex-shrink:0;font-size:.8rem}
+.si-content{flex:1;min-width:0}
+.si-title{font-weight:700;font-size:.88rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Reader */
+.risale-reader{padding:8px 0 20px;line-height:1.9;color:var(--text-primary)}
+.r-page-marker{display:inline-block;padding:2px 10px;margin:12px 0 4px;background:var(--accent-glow);color:var(--accent);border-radius:8px;font-size:.75rem;font-weight:700;float:right;clear:both}
+.r-arabic-verse{font-family:'Noto Naskh Arabic',serif;direction:rtl;text-align:center;font-size:1.35em;line-height:2.2;color:var(--accent);padding:18px 12px;margin:20px 0;background:var(--gradient-surface);border:1px solid var(--outline);border-radius:var(--radius);position:relative}
+.r-arabic-verse::before{content:'';position:absolute;inset:0;background:var(--gradient-glow);pointer-events:none;border-radius:var(--radius)}
+.r-title{font-size:1.15em;font-weight:800;color:var(--text-primary);margin:28px 0 12px;text-align:center;position:relative;padding-bottom:12px}
+.r-title-line{width:50px;height:2px;background:var(--gradient-accent);margin:8px auto 0;border-radius:1px}
+.r-bigtitle{font-size:1.35em;font-weight:900;color:var(--accent);text-align:center;margin:32px 0 16px}
+.r-header{font-size:1.05em;font-weight:700;color:var(--text-secondary);text-align:center;margin:12px 0 8px}
+.r-centered{text-align:center;margin:8px 0;color:var(--text-secondary)}
+.r-paragraph{margin-bottom:14px;text-align:justify}
+.r-indented{margin-bottom:14px;padding-left:20px;text-align:justify}
+.r-indented::first-letter{font-size:1.3em;font-weight:700}
+.r-quote{display:flex;gap:14px;margin:16px 0;padding:14px 16px;background:var(--gradient-surface);border:1px solid var(--outline);border-radius:14px}
+.r-quote-bar{width:3px;border-radius:2px;background:var(--gradient-accent);flex-shrink:0;min-height:20px}
+.r-author{font-weight:700;color:var(--accent);text-align:right;margin:12px 0;font-size:.95em}
+.r-attribution{text-align:center;color:var(--text-tertiary);font-size:.85em;margin:6px 0}
+.r-separator{display:flex;align-items:center;justify-content:center;gap:10px;padding:20px 0}
+.r-separator span{width:6px;height:6px;border-radius:50%;background:var(--accent);opacity:.4}
+.r-separator span:nth-child(2){opacity:.7}
+.r-inline-arabic{font-family:'Noto Naskh Arabic',serif;color:var(--accent-light);font-size:1.1em;direction:rtl;unicode-bidi:isolate}
+strong{font-weight:800;color:var(--text-primary)}
 </style>
 </head>
 <body>
+<div id="splash"><div class="splash-title">☪ Sahur</div><div class="splash-sub">Islamic Companion</div></div>
+<div id="installBanner">
+<div style="flex:1"><div style="font-weight:800;font-size:.95rem">Sahur</div><div style="font-size:.8rem;color:var(--text-secondary)" id="installText">Ana ekrana ekle</div></div>
+<button class="btn btn-primary" style="padding:8px 18px;font-size:.85rem" id="installBtn" onclick="installPWA()">Ekle</button>
+<button style="color:var(--text-tertiary);padding:8px" onclick="dismissInstall()">✕</button>
+</div>
 <div id="onboarding" style="display:none">
 <h1>☪ Sahur</h1>
 <p id="obText"></p>
@@ -199,49 +411,53 @@ input:focus{border-color:var(--accent)}
 <div id="page-imsakiye" class="page"><div class="container" id="imsakiyeContent"></div></div>
 <div id="page-surah" class="page"><div class="container" id="surahContent"></div></div>
 <div id="page-tesbihat" class="page"><div class="container" id="tesbihatContent"></div></div>
+<div id="page-duas" class="page"><div class="container" id="duasContent"></div></div>
+<div id="page-prayer-log" class="page"><div class="container" id="prayerLogContent"></div></div>
 <div id="page-full-player" class="page"></div>
 </div>
 
 <div id="miniPlayer">
 <img id="mpCover" src="" alt="">
 <div class="mp-info"><div class="mp-title" id="mpTitle"></div><div class="mp-artist" id="mpArtist"></div></div>
-<button class="mp-btn" onclick="togglePlay()"><svg id="mpPlayIcon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></button>
+<button class="mp-btn" onclick="togglePlay()"><i id="mpPlayIcon" class="fa-solid fa-play"></i></button>
 </div>
 
 <div id="fullPlayer">
 <div class="fp-header">
-<button class="header-btn" onclick="closeFullPlayer()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg></button>
+<button class="header-btn" onclick="closeFullPlayer()"><i class="fa-solid fa-chevron-left"></i></button>
 <span style="font-weight:700">Now Playing</span>
-<button class="header-btn" id="fpLikeBtn" onclick="likeCurrentTrack()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+<button class="header-btn" id="fpLikeBtn" onclick="likeCurrentTrack()"><i class="fa-regular fa-heart"></i></button>
 </div>
 <img class="fp-cover" id="fpCover" src="" alt="">
 <div class="fp-info"><div class="title" id="fpTitle"></div><div class="artist" id="fpArtist"></div></div>
 <div class="fp-seek"><input type="range" id="fpSeek" min="0" max="100" value="0" oninput="seekAudio(this.value)"></div>
 <div class="fp-times"><span id="fpCurrent">0:00</span><span id="fpDuration">0:00</span></div>
 <div class="fp-controls">
-<button onclick="prevTrack()"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg></button>
-<button class="play-btn" onclick="togglePlay()"><svg id="fpPlayIcon" width="32" height="32" viewBox="0 0 24 24" fill="#0F172A"><polygon points="5,3 19,12 5,21"/></svg></button>
-<button onclick="nextTrack()"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M16 18h2V6h-2zM5.5 12l8.5 6V6z" transform="scale(-1,1) translate(-24,0)"/></svg></button>
+<button onclick="prevTrack()"><i class="fa-solid fa-backward-step" style="font-size:1.4rem"></i></button>
+<button class="play-btn" onclick="togglePlay()"><i id="fpPlayIcon" class="fa-solid fa-play" style="font-size:1.6rem;color:#0F172A"></i></button>
+<button onclick="nextTrack()"><i class="fa-solid fa-forward-step" style="font-size:1.4rem"></i></button>
 </div>
 </div>
 
 <nav id="bottomNav" style="display:none">
+<div class="nav-pill">
 <a class="nav-item" data-tab="home" onclick="navigate('home')">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
-<span class="nav-label"></span>
+<i class="fa-solid fa-house"></i>
+<span class="nav-label">Sahur</span>
 </a>
 <a class="nav-item" data-tab="quran" onclick="navigate('quran')">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-<span class="nav-label"></span>
-</a>
-<a class="nav-item" data-tab="ilahiler" onclick="navigate('ilahiler')">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+<i class="fa-solid fa-book-quran"></i>
 <span class="nav-label"></span>
 </a>
 <a class="nav-item" data-tab="risale" onclick="navigate('risale')">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+<i class="fa-solid fa-book"></i>
 <span class="nav-label"></span>
 </a>
+<a class="nav-item" data-tab="ilahiler" onclick="navigate('ilahiler')">
+<i class="fa-solid fa-music"></i>
+<span class="nav-label"></span>
+</a>
+</div>
 </nav>
 
 <div class="modal-overlay" id="locationModal" onclick="if(event.target===this)closeLocationModal()">
@@ -258,7 +474,7 @@ input:focus{border-color:var(--accent)}
 const API='https://mubarak.mertnode.net';
 const KAABA={lat:21.422487,lon:39.826384};
 
-const STRINGS={home:{tr:"Ana Sayfa",en:"Home",ar:"الرئيسية"},quran:{tr:"Kuran",en:"Quran",ar:"القرآن"},ilahiler:{tr:"İlahiler",en:"Nasheeds",ar:"أناشيد"},risale:{tr:"Risaleler",en:"Risale",ar:"الرسائل"},settings:{tr:"Ayarlar",en:"Settings",ar:"الإعدادات"},fajr:{tr:"İmsak",en:"Fajr",ar:"الفجر"},sunrise:{tr:"Güneş",en:"Sunrise",ar:"الشروق"},dhuhr:{tr:"Öğle",en:"Dhuhr",ar:"الظهر"},asr:{tr:"İkindi",en:"Asr",ar:"العصر"},maghrib:{tr:"Akşam",en:"Maghrib",ar:"المغرب"},isha:{tr:"Yatsı",en:"Isha",ar:"العشاء"},until_fajr:{tr:"İmsak'a Kalan",en:"Until Fajr",ar:"حتى الفجر"},until_sunrise:{tr:"Güneş'e Kalan",en:"Until Sunrise",ar:"حتى الشروق"},until_dhuhr:{tr:"Öğle'ye Kalan",en:"Until Dhuhr",ar:"حتى الظهر"},until_asr:{tr:"İkindi'ye Kalan",en:"Until Asr",ar:"حتى العصر"},until_maghrib:{tr:"Akşam'a Kalan",en:"Until Maghrib",ar:"حتى المغرب"},until_isha:{tr:"Yatsı'ya Kalan",en:"Until Isha",ar:"حتى العشاء"},until_iftar:{tr:"İftara Kalan",en:"Until Iftar",ar:"حتى الإفطار"},until_sahur:{tr:"Sahura Kalan",en:"Until Sahur",ar:"حتى السحور"},daily_verse:{tr:"Günün Ayeti",en:"Daily Verse",ar:"آية اليوم"},daily_hadith:{tr:"Günün Hadisi",en:"Daily Hadith",ar:"حديث اليوم"},qibla:{tr:"Kıble",en:"Qibla",ar:"القبلة"},dhikr:{tr:"Zikirmatik",en:"Dhikr Counter",ar:"عداد الذكر"},bookmarks:{tr:"Yer İmleri",en:"Bookmarks",ar:"الإشارات المرجعية"},special_days:{tr:"Özel Günler",en:"Special Days",ar:"الأيام المميزة"},imsakiye:{tr:"İmsakiye",en:"Prayer Calendar",ar:"إمساكية"},tesbihat:{tr:"Tesbihat",en:"Tasbeeh",ar:"التسبيحات"},loading:{tr:"Yükleniyor...",en:"Loading...",ar:"جاري التحميل..."},error:{tr:"Bir hata oluştu",en:"Something went wrong",ar:"حدث خطأ"},retry:{tr:"Tekrar Dene",en:"Retry",ar:"حاول مرة أخرى"},search:{tr:"Ara...",en:"Search...",ar:"بحث..."},no_results:{tr:"Sonuç bulunamadı",en:"No results found",ar:"لا توجد نتائج"},theme:{tr:"Tema",en:"Theme",ar:"السمة"},language:{tr:"Dil",en:"Language",ar:"اللغة"},dark:{tr:"Koyu",en:"Dark",ar:"داكن"},light:{tr:"Açık",en:"Light",ar:"فاتح"},about:{tr:"Hakkında",en:"About",ar:"حول"},version:{tr:"Sürüm",en:"Version",ar:"الإصدار"},location:{tr:"Konum",en:"Location",ar:"الموقع"},change_location:{tr:"Konumu Değiştir",en:"Change Location",ar:"تغيير الموقع"},surah:{tr:"Sure",en:"Surah",ar:"سورة"},juz:{tr:"Cüz",en:"Juz",ar:"جزء"},page:{tr:"Sayfa",en:"Page",ar:"صفحة"},verses:{tr:"ayet",en:"verses",ar:"آيات"},meccan:{tr:"Mekki",en:"Meccan",ar:"مكية"},medinan:{tr:"Medeni",en:"Medinan",ar:"مدنية"},days_left:{tr:"gün kaldı",en:"days left",ar:"أيام متبقية"},tomorrow:{tr:"Yarın",en:"Tomorrow",ar:"غداً"},today:{tr:"Bugün",en:"Today",ar:"اليوم"},coming_soon:{tr:"Yakında",en:"Coming Soon",ar:"قريباً"},all:{tr:"Tümü",en:"All",ar:"الكل"},popular:{tr:"Popüler",en:"Popular",ar:"الأكثر شعبية"},reset:{tr:"Sıfırla",en:"Reset",ar:"إعادة تعيين"},tap_to_count:{tr:"Saymak için dokun",en:"Tap to count",ar:"انقر للعد"},completed:{tr:"Tamamlandı!",en:"Completed!",ar:"اكتمل!"},developer:{tr:"Sevgiyle yapıldı",en:"Made with love by",ar:"صُنع بحب بواسطة"}};
+const STRINGS={home:{tr:"Ana Sayfa",en:"Home",ar:"الرئيسية"},quran:{tr:"Kuran",en:"Quran",ar:"القرآن"},ilahiler:{tr:"İlahiler",en:"Nasheeds",ar:"أناشيد"},risale:{tr:"Risaleler",en:"Risale",ar:"الرسائل"},settings:{tr:"Ayarlar",en:"Settings",ar:"الإعدادات"},fajr:{tr:"İmsak",en:"Fajr",ar:"الفجر"},sunrise:{tr:"Güneş",en:"Sunrise",ar:"الشروق"},dhuhr:{tr:"Öğle",en:"Dhuhr",ar:"الظهر"},asr:{tr:"İkindi",en:"Asr",ar:"العصر"},maghrib:{tr:"Akşam",en:"Maghrib",ar:"المغرب"},isha:{tr:"Yatsı",en:"Isha",ar:"العشاء"},until_fajr:{tr:"İmsak'a Kalan",en:"Until Fajr",ar:"حتى الفجر"},until_sunrise:{tr:"Güneş'e Kalan",en:"Until Sunrise",ar:"حتى الشروق"},until_dhuhr:{tr:"Öğle'ye Kalan",en:"Until Dhuhr",ar:"حتى الظهر"},until_asr:{tr:"İkindi'ye Kalan",en:"Until Asr",ar:"حتى العصر"},until_maghrib:{tr:"Akşam'a Kalan",en:"Until Maghrib",ar:"حتى المغرب"},until_isha:{tr:"Yatsı'ya Kalan",en:"Until Isha",ar:"حتى العشاء"},until_iftar:{tr:"İftara Kalan",en:"Until Iftar",ar:"حتى الإفطار"},until_sahur:{tr:"Sahura Kalan",en:"Until Sahur",ar:"حتى السحور"},daily_verse:{tr:"Günün Ayeti",en:"Daily Verse",ar:"آية اليوم"},daily_hadith:{tr:"Günün Hadisi",en:"Daily Hadith",ar:"حديث اليوم"},qibla:{tr:"Kıble",en:"Qibla",ar:"القبلة"},dhikr:{tr:"Zikirmatik",en:"Dhikr Counter",ar:"عداد الذكر"},bookmarks:{tr:"Yer İmleri",en:"Bookmarks",ar:"الإشارات المرجعية"},special_days:{tr:"Özel Günler",en:"Special Days",ar:"الأيام المميزة"},imsakiye:{tr:"İmsakiye",en:"Prayer Calendar",ar:"إمساكية"},tesbihat:{tr:"Tesbihat",en:"Tasbeeh",ar:"التسبيحات"},loading:{tr:"Yükleniyor...",en:"Loading...",ar:"جاري التحميل..."},error:{tr:"Bir hata oluştu",en:"Something went wrong",ar:"حدث خطأ"},retry:{tr:"Tekrar Dene",en:"Retry",ar:"حاول مرة أخرى"},search:{tr:"Ara...",en:"Search...",ar:"بحث..."},no_results:{tr:"Sonuç bulunamadı",en:"No results found",ar:"لا توجد نتائج"},theme:{tr:"Tema",en:"Theme",ar:"السمة"},language:{tr:"Dil",en:"Language",ar:"اللغة"},dark:{tr:"Koyu",en:"Dark",ar:"داكن"},light:{tr:"Açık",en:"Light",ar:"فاتح"},about:{tr:"Hakkında",en:"About",ar:"حول"},version:{tr:"Sürüm",en:"Version",ar:"الإصدار"},location:{tr:"Konum",en:"Location",ar:"الموقع"},change_location:{tr:"Konumu Değiştir",en:"Change Location",ar:"تغيير الموقع"},surah:{tr:"Sure",en:"Surah",ar:"سورة"},juz:{tr:"Cüz",en:"Juz",ar:"جزء"},page:{tr:"Sayfa",en:"Page",ar:"صفحة"},verses:{tr:"ayet",en:"verses",ar:"آيات"},meccan:{tr:"Mekki",en:"Meccan",ar:"مكية"},medinan:{tr:"Medeni",en:"Medinan",ar:"مدنية"},days_left:{tr:"gün kaldı",en:"days left",ar:"أيام متبقية"},tomorrow:{tr:"Yarın",en:"Tomorrow",ar:"غداً"},today:{tr:"Bugün",en:"Today",ar:"اليوم"},coming_soon:{tr:"Yakında",en:"Coming Soon",ar:"قريباً"},all:{tr:"Tümü",en:"All",ar:"الكل"},popular:{tr:"Popüler",en:"Popular",ar:"الأكثر شعبية"},reset:{tr:"Sıfırla",en:"Reset",ar:"إعادة تعيين"},tap_to_count:{tr:"Saymak için dokun",en:"Tap to count",ar:"انقر للعد"},completed:{tr:"Tamamlandı!",en:"Completed!",ar:"اكتمل!"},developer:{tr:"Sevgiyle yapıldı",en:"Made with love by",ar:"صُنع بحب بواسطة"},duas:{tr:"Dualar",en:"Duas",ar:"الأدعية"},prayer_log:{tr:"Namaz Takip",en:"Prayer Log",ar:"سجل الصلاة"},share:{tr:"Paylaş",en:"Share",ar:"مشاركة"},copied:{tr:"Kopyalandı!",en:"Copied!",ar:"تم النسخ!"},install:{tr:"Ana ekrana ekle",en:"Add to Home Screen",ar:"إضافة إلى الشاشة"},add:{tr:"Ekle",en:"Add",ar:"إضافة"},ramadan_day:{tr:"Ramazan Günü",en:"Ramadan Day",ar:"يوم رمضان"},fasting_tracker:{tr:"Oruç Takip",en:"Fasting Tracker",ar:"تتبع الصيام"},mark_prayed:{tr:"Kıldım",en:"Prayed",ar:"صليت"},nearby_mosques:{tr:"Yakın Camiler",en:"Nearby Mosques",ar:"المساجد القريبة"},risale:{tr:"Risale-i Nur",en:"Risale-i Nur",ar:"رسائل النور"},risale_books:{tr:"Risale-i Nur Külliyatı",en:"Risale-i Nur Collection",ar:"مجموعة رسائل النور"},table_of_contents:{tr:"İçindekiler",en:"Contents",ar:"المحتويات"},continue_reading:{tr:"Okumaya Devam Et",en:"Continue Reading",ar:"متابعة القراءة"},sections:{tr:"Bölüm",en:"Sections",ar:"أقسام"},next:{tr:"Sonraki",en:"Next",ar:"التالي"},previous:{tr:"Önceki",en:"Previous",ar:"السابق"},morning_duas:{tr:"Sabah Duaları",en:"Morning Duas",ar:"أدعية الصباح"},evening_duas:{tr:"Akşam Duaları",en:"Evening Duas",ar:"أدعية المساء"},meal_duas:{tr:"Yemek Duaları",en:"Meal Duas",ar:"أدعية الطعام"},travel_duas:{tr:"Yolculuk Duaları",en:"Travel Duas",ar:"أدعية السفر"},general_duas:{tr:"Genel Dualar",en:"General Duas",ar:"أدعية عامة"}};
 
 const SPECIAL_DAYS=[
 {date:"2026-01-15",name:{tr:"Miraç Kandili",en:"Miraj Night",ar:"ليلة الإسراء والمعراج"},hijri:"26 Recep 1447"},
@@ -293,6 +509,30 @@ const DHIKRS=[
 {id:'lahavle',arabic:'لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللهِ',tr:'La havle',en:'La hawla',ar:'لا حول ولا قوة إلا بالله',target:100}
 ];
 
+const DUAS_DATA=[
+{cat:'morning_duas',items:[
+{arabic:'أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ',translit:'Asbahna ve asbahal mulku lillah',tr:'Sabaha ulaştık ve mülk Allah\'ındır',en:'We have entered the morning and the dominion belongs to Allah',ar:'أصبحنا وأصبح الملك لله'},
+{arabic:'اللَّهُمَّ بِكَ أَصْبَحْنَا وَبِكَ أَمْسَيْنَا وَبِكَ نَحْيَا وَبِكَ نَمُوتُ وَإِلَيْكَ النُّشُورُ',translit:'Allahumme bike asbahna ve bike amseyna ve bike nahya ve bike nemutu ve ileyken nushur',tr:'Allah\'ım! Senin sayende sabahladık, senin sayende akşamladık, senin sayende yaşar, senin sayende ölürüz.',en:'O Allah, by You we enter the morning and by You we enter the evening.',ar:'اللهم بك أصبحنا وبك أمسينا'},
+{arabic:'بِسْمِ اللهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ',translit:'Bismillahillezi la yedurru measmihi shey\'un fil ardi ve la fis semai ve huves semiul alim',tr:'Allah\'ın adıyla ki O\'nun adıyla beraber yerde ve gökte hiçbir şey zarar veremez.',en:'In the Name of Allah, with whose Name nothing on earth or in heaven can harm.',ar:'بسم الله الذي لا يضر مع اسمه شيء'}
+]},
+{cat:'evening_duas',items:[
+{arabic:'أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ',translit:'Amseyna ve amsal mulku lillah',tr:'Akşama ulaştık ve mülk Allah\'ındır',en:'We have entered the evening and the dominion belongs to Allah',ar:'أمسينا وأمسى الملك لله'},
+{arabic:'أَعُوذُ بِكَلِمَاتِ اللهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ',translit:'Euzu bi kelimatillahit tammati min sherri ma halak',tr:'Allah\'ın tam kelimelerine sığınırım, yarattıklarının şerrinden',en:'I seek refuge in the perfect words of Allah from the evil of what He has created',ar:'أعوذ بكلمات الله التامات من شر ما خلق'}
+]},
+{cat:'meal_duas',items:[
+{arabic:'بِسْمِ اللهِ وَعَلَى بَرَكَةِ اللهِ',translit:'Bismillahi ve ala berekitillah',tr:'Allah\'ın adıyla ve Allah\'ın bereketiyle',en:'In the name of Allah and with the blessings of Allah',ar:'بسم الله وعلى بركة الله'},
+{arabic:'الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنَا وَسَقَانَا وَجَعَلَنَا مُسْلِمِينَ',translit:'Elhamdulillahillezi at\'amena ve sekana ve cealena muslimin',tr:'Bizi yediren, içiren ve Müslüman kılan Allah\'a hamd olsun',en:'Praise be to Allah who fed us, gave us drink, and made us Muslims',ar:'الحمد لله الذي أطعمنا وسقانا وجعلنا مسلمين'}
+]},
+{cat:'travel_duas',items:[
+{arabic:'سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ',translit:'Subhanellezi sahhara lena haza ve ma kunna lehu mukrinin',tr:'Bunu bizim hizmetimize veren Allah\'ı tespih ederiz',en:'Glory be to Him who has subjected this to us',ar:'سبحان الذي سخر لنا هذا'}
+]},
+{cat:'general_duas',items:[
+{arabic:'رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ',translit:'Rabbena atina fid dunya haseneten ve fil ahireti haseneten ve kina azaben nar',tr:'Rabbimiz! Bize dünyada da, ahirette de güzellik ver. Bizi ateş azabından koru.',en:'Our Lord, give us good in this world and in the Hereafter, and protect us from the fire.',ar:'ربنا آتنا في الدنيا حسنة وفي الآخرة حسنة'},
+{arabic:'رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي',translit:'Rabbishrahli sadri ve yessirli emri',tr:'Rabbim! Göğsümü aç, işimi kolaylaştır',en:'My Lord, expand my chest and ease my task for me',ar:'رب اشرح لي صدري ويسر لي أمري'},
+{arabic:'اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَافِيَةَ فِي الدُّنْيَا وَالآخِرَةِ',translit:'Allahumme inni es\'elukel afiyete fid dunya vel ahira',tr:'Allah\'ım! Senden dünya ve ahirette afiyet istiyorum',en:'O Allah, I ask You for well-being in this world and the Hereafter',ar:'اللهم إني أسألك العافية في الدنيا والآخرة'}
+]}
+];
+
 const HIJRI_MONTHS={tr:['Muharrem','Safer','Rebiülevvel','Rebiülahir','Cemaziyelevvel','Cemaziyelahir','Recep','Şaban','Ramazan','Şevval','Zilkade','Zilhicce'],en:['Muharram','Safar','Rabi al-Awwal','Rabi al-Thani','Jumada al-Ula','Jumada al-Thani','Rajab','Shaban','Ramadan','Shawwal','Dhul Qadah','Dhul Hijjah'],ar:['محرم','صفر','ربيع الأول','ربيع الثاني','جمادى الأولى','جمادى الثانية','رجب','شعبان','رمضان','شوال','ذو القعدة','ذو الحجة']};
 const GREG_MONTHS={tr:['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'],en:['January','February','March','April','May','June','July','August','September','October','November','December'],ar:['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر']};
 
@@ -314,15 +554,50 @@ let musicCategoriesCache=null;
 let selectedMusicCategory='';
 
 function s(key){return STRINGS[key]?STRINGS[key][lang]||STRINGS[key].tr||key:key}
-function applyTheme(){document.documentElement.setAttribute('data-theme',theme);document.querySelector('meta[name="theme-color"]').content=theme==='dark'?'#0F172A':'#F8FAFC'}
-function applyLang(){document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.querySelectorAll('.nav-item').forEach(n=>{const t=n.dataset.tab;n.querySelector('.nav-label').textContent=s(t)});document.getElementById('locModalTitle').textContent=s('change_location')}
+/* Extract localized text from API objects. Handles: string, {turkish,english,arabic,transliteration}, or fallback */
+function t(val,fallback){
+  if(!val)return fallback||'';
+  if(typeof val==='string')return val;
+  if(typeof val==='object'){
+    const langMap={tr:'turkish',en:'english',ar:'arabic'};
+    return val[langMap[lang]]||val.turkish||val.english||val.transliteration||val.arabic||val.text||val.tr||val.en||fallback||'';
+  }
+  return String(val);
+}
+/* Get Arabic text from an API field */
+function tAr(val){
+  if(!val)return '';
+  if(typeof val==='string')return val;
+  if(typeof val==='object')return val.arabic||val.arab||'';
+  return '';
+}
+/* Get transliteration */
+function tLit(val){
+  if(!val)return '';
+  if(typeof val==='string')return val;
+  if(typeof val==='object')return val.transliteration||val.latin||'';
+  return '';
+}
+function applyTheme(){document.documentElement.setAttribute('data-theme',theme);document.querySelector('meta[name="theme-color"]').content=theme==='dark'?'#0F1220':'#F2F4F8'}
+function applyLang(){document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.querySelectorAll('.nav-item').forEach(n=>{const tab=n.dataset.tab;const lbl=n.querySelector('.nav-label');if(tab==='home')lbl.textContent='Sahur';else if(tab==='quran')lbl.textContent=s('quran');else if(tab==='risale')lbl.textContent=s('risale');else if(tab==='ilahiler')lbl.textContent=s('ilahiler');});document.getElementById('locModalTitle').textContent=s('change_location')}
 
 function gregorianToHijri(year,month,day){let jd=Math.floor((1461*(year+4800+Math.floor((month-14)/12)))/4)+Math.floor((367*(month-2-12*Math.floor((month-14)/12)))/12)-Math.floor((3*Math.floor((year+4900+Math.floor((month-14)/12))/100))/4)+day-32075;let l=jd-1948440+10632;let n=Math.floor((l-1)/10631);l=l-10631*n+354;let j=Math.floor((10985-l)/5316)*Math.floor((50*l)/17719)+Math.floor(l/5670)*Math.floor((43*l)/15238);l=l-Math.floor((30-j)/15)*Math.floor((17719*j)/50)-Math.floor(j/16)*Math.floor((15238*j)/43)+29;let hm=Math.floor((24*l)/709);let hd=l-Math.floor((709*hm)/24);let hy=30*n+j-30;return{day:hd,month:hm,year:hy}}
 
 async function apiFetch(endpoint,skipCache){
   const cacheKey='sahur_cache_'+endpoint;
   if(!skipCache){const c=localStorage.getItem(cacheKey);if(c){const p=JSON.parse(c);if(Date.now()-p.ts<3600000)return p.data}}
-  try{const r=await fetch(API+endpoint);if(!r.ok)throw new Error(r.status);const d=await r.json();try{localStorage.setItem(cacheKey,JSON.stringify({ts:Date.now(),data:d}))}catch(e){}return d}catch(e){if(!skipCache){const c=localStorage.getItem(cacheKey);if(c)return JSON.parse(c).data}throw e}
+  try{
+    const r=await fetch(API+endpoint);
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const d=await r.json();
+    console.log('[API]',endpoint,d);
+    try{localStorage.setItem(cacheKey,JSON.stringify({ts:Date.now(),data:d}))}catch(e){}
+    return d;
+  }catch(e){
+    console.warn('[API Error]',endpoint,e.message);
+    if(!skipCache){const c=localStorage.getItem(cacheKey);if(c)return JSON.parse(c).data}
+    throw e;
+  }
 }
 
 function dateStr(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
@@ -340,10 +615,13 @@ function handleRoute(){
   const page=parts[0];
   const param=parts.slice(1).join('/');
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  const el=document.getElementById('page-'+page);
+  const pageMap={'risale-book':'risale','risale-reader':'risale'};
+  const activePage=pageMap[page]||page;
+  const el=document.getElementById('page-'+activePage);
   if(el){el.classList.add('active');currentPage=page}
   else{document.getElementById('page-home').classList.add('active');currentPage='home'}
-  document.querySelectorAll('.nav-item').forEach(n=>{n.classList.toggle('active',n.dataset.tab===page||(page==='home'&&n.dataset.tab==='home'))});
+  const navTab=pageMap[page]||page;
+  document.querySelectorAll('.nav-item').forEach(n=>{n.classList.toggle('active',n.dataset.tab===navTab||(navTab==='home'&&n.dataset.tab==='home'))});
   renderPage(currentPage,param);
 }
 window.addEventListener('hashchange',handleRoute);
@@ -363,19 +641,78 @@ function renderPage(page,param){
     case'imsakiye':renderImsakiye();break;
     case'surah':renderSurah(param);break;
     case'tesbihat':renderTesbihat();break;
+    case'duas':renderDuas();break;
+    case'prayer-log':renderPrayerLog();break;
+    case'nearby-mosques':openNearbyMosques();break;
+    case'risale-book':renderRisaleBook(param);break;
+    case'risale-reader':renderRisaleReader(param);break;
   }
 }
+
+const DAY_NAMES={tr:['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'],en:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],ar:['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت']};
+const PRAYER_ICONS={
+fajr:'<i class="fa-solid fa-moon"></i>',
+sunrise:'<i class="fa-solid fa-sun"></i>',
+dhuhr:'<i class="fa-solid fa-sun"></i>',
+asr:'<i class="fa-solid fa-cloud-sun"></i>',
+maghrib:'<i class="fa-solid fa-cloud-sun-rain"></i>',
+isha:'<i class="fa-regular fa-moon"></i>'
+};
 
 /* HOME */
 async function renderHome(){
   const c=document.getElementById('homeContent');
-  c.innerHTML=`<div class="header" style="padding:0;margin-bottom:12px"><h1 style="font-size:1rem">${loc?loc.name:s('location')}</h1><button class="header-btn" onclick="navigate('settings')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button></div>`;
-  c.innerHTML+=`<div id="countdownArea" style="text-align:center;margin-bottom:16px"><div class="loading"><div class="spinner"></div>${s('loading')}</div></div>`;
-  c.innerHTML+=`<div id="prayerRow" style="margin-bottom:16px"></div>`;
-  c.innerHTML+=`<div id="dailyVerse" style="margin-bottom:12px"></div>`;
-  c.innerHTML+=`<div id="dailyHadith" style="margin-bottom:16px"></div>`;
-  c.innerHTML+=`<div class="quick-grid" id="quickActions"></div>`;
+  const now=new Date();
+  const dayName=DAY_NAMES[lang][now.getDay()];
+  const gregDate=`${now.getDate()} ${GREG_MONTHS[lang][now.getMonth()]} ${now.getFullYear()}`;
+  const hij=gregorianToHijri(now.getFullYear(),now.getMonth()+1,now.getDate());
+  const hijStr=`${hij.day} ${HIJRI_MONTHS[lang][hij.month-1]} ${hij.year}`;
+
+  c.innerHTML=`
+  <!-- Top bar -->
+  <div class="home-top">
+    <button class="loc-chip" onclick="showLocationModal()"><i class="fa-solid fa-location-dot" style="color:var(--accent)"></i> ${loc?loc.name:s('location')}</button>
+    <div class="home-top-actions">
+      <button class="top-icon-btn" onclick="navigate('qibla')"><i class="fa-solid fa-compass"></i></button>
+      <button class="top-icon-btn" onclick="navigate('ilahiler')"><i class="fa-solid fa-music"></i></button>
+      <button class="top-icon-btn" onclick="navigate('settings')"><i class="fa-solid fa-gear"></i></button>
+    </div>
+  </div>
+
+  <!-- Date section -->
+  <div class="home-date">
+    <div class="home-day">${dayName}</div>
+    <div class="home-greg">${gregDate}</div>
+    <button class="hijri-chip" onclick="navigate('special-days')"><i class="fa-regular fa-moon" style="font-size:.75rem"></i> ${hijStr} <i class="fa-solid fa-chevron-right" style="font-size:.6rem"></i></button>
+  </div>
+
+  <!-- Prayer timeline -->
+  <div id="prayerTimeline" class="prayer-timeline"></div>
+
+  <!-- Countdown -->
+  <div id="countdownArea" class="countdown-section">
+    <div class="loading"><div class="spinner"></div>${s('loading')}</div>
+  </div>
+
+  <!-- Prayer list card -->
+  <div id="prayerListCard" class="prayer-list-card"></div>
+
+  <!-- Upcoming event -->
+  <div id="upcomingEvent" class="upcoming-bar"></div>
+
+  <!-- Ramadan -->
+  <div id="ramadanBanner"></div>
+
+  <!-- Daily content -->
+  <div id="dailyVerse" style="margin-top:14px"></div>
+  <div id="dailyHadith" style="margin-top:12px"></div>
+
+  <!-- Quick actions -->
+  <div class="quick-grid stagger" id="quickActions" style="margin-top:16px"></div>
+  `;
   renderQuickActions();
+  renderRamadanBanner();
+  renderUpcomingEvent();
   if(loc)loadPrayerTimes();
   loadDailyContent();
 }
@@ -384,44 +721,88 @@ function renderQuickActions(){
   const q=document.getElementById('quickActions');
   if(!q)return;
   const items=[
-    {icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2v10l4 4"/></svg>',label:s('qibla'),route:'qibla'},
-    {icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',label:s('tesbihat'),route:'tesbihat'},
-    {icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>',label:s('dhikr'),route:'dhikr'},
-    {icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>',label:s('bookmarks'),route:'bookmarks'},
-    {icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',label:s('special_days'),route:'special-days'},
-    {icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 3v18"/></svg>',label:s('imsakiye'),route:'imsakiye'}
+    {icon:'<i class="fa-solid fa-mosque"></i>',label:s('nearby_mosques'),route:'nearby-mosques'},
+    {icon:'<i class="fa-solid fa-compass"></i>',label:s('qibla'),route:'qibla'},
+    {icon:'<i class="fa-solid fa-hands-praying"></i>',label:s('tesbihat'),route:'tesbihat'},
+    {icon:'<i class="fa-solid fa-circle-dot"></i>',label:s('dhikr'),route:'dhikr'},
+    {icon:'<i class="fa-solid fa-bookmark"></i>',label:s('bookmarks'),route:'bookmarks'},
+    {icon:'<i class="fa-solid fa-calendar-days"></i>',label:s('special_days'),route:'special-days'},
+    {icon:'<i class="fa-solid fa-table-cells"></i>',label:s('imsakiye'),route:'imsakiye'},
+    {icon:'<i class="fa-solid fa-book-open"></i>',label:s('duas'),route:'duas'},
+    {icon:'<i class="fa-solid fa-check-double"></i>',label:s('prayer_log'),route:'prayer-log'}
   ];
   q.innerHTML=items.map(i=>`<button class="quick-item" onclick="navigate('${i.route}')">${i.icon}<span>${i.label}</span></button>`).join('');
 }
 
 async function loadPrayerTimes(){
+  const today=dateStr(new Date());
   try{
-    const today=dateStr(new Date());
     const data=await apiFetch(`/prayers/times?lat=${loc.lat}&lon=${loc.lon}&date=${today}&method=Turkey&madhab=shafi`);
-    prayerTimes=data;
-    renderPrayerRow();
-    startCountdown();
-  }catch(e){document.getElementById('countdownArea').innerHTML=`<p style="color:var(--error)">${s('error')}</p>`}
+    const t=data&&data.data?data.data:data;
+    prayerTimes=t.times||t;
+    if(prayerTimes&&prayerTimes.fajr){renderPrayerRow();startCountdown();return}
+  }catch(e){console.warn('Primary API failed:',e)}
+  try{
+    const[y,mo,d]=today.split('-');
+    const r=await fetch(`https://api.aladhan.com/v1/timings/${d}-${mo}-${y}?latitude=${loc.lat}&longitude=${loc.lon}&method=13`);
+    const j=await r.json();
+    const at=j.data.timings;
+    prayerTimes={fajr:at.Fajr.substring(0,5),sunrise:at.Sunrise.substring(0,5),dhuhr:at.Dhuhr.substring(0,5),asr:at.Asr.substring(0,5),maghrib:at.Maghrib.substring(0,5),isha:at.Isha.substring(0,5)};
+    renderPrayerRow();startCountdown();
+  }catch(e2){
+    console.error('Aladhan API also failed:',e2);
+    const ca=document.getElementById('countdownArea');
+    if(ca)ca.innerHTML=`<p style="color:var(--error)">${s('error')}</p><button class="btn btn-outline" style="margin-top:8px" onclick="loadPrayerTimes()">${s('retry')}</button>`;
+  }
 }
 
 function renderPrayerRow(){
   if(!prayerTimes)return;
-  const row=document.getElementById('prayerRow');
   const keys=['fajr','sunrise','dhuhr','asr','maghrib','isha'];
-  const apiKeys=['fajr','sunrise','dhuhr','asr','maghrib','isha'];
+  const times=prayerTimes.times||prayerTimes;
   const now=new Date();
   const nowMin=now.getHours()*60+now.getMinutes();
-  const times=prayerTimes.times||prayerTimes;
   let nextIdx=-1;
-  for(let i=0;i<apiKeys.length;i++){
-    const t=times[apiKeys[i]];
-    if(t&&timeToMin(t)>nowMin){nextIdx=i;break}
+  for(let i=0;i<keys.length;i++){const t=times[keys[i]];if(t&&timeToMin(t)>nowMin){nextIdx=i;break}}
+  // Previous prayer index
+  let prevIdx=nextIdx>0?nextIdx-1:(nextIdx===-1?keys.length-1:-1);
+
+  // Timeline icons row + progress bars
+  const timeline=document.getElementById('prayerTimeline');
+  if(timeline){
+    timeline.innerHTML=`<div class="pt-icons">${keys.map((k,i)=>{
+      const t=times[k]||'--:--';
+      const isNext=i===nextIdx;
+      const isPassed=nextIdx===-1||i<nextIdx;
+      return`<div class="pt-item ${isNext?'active':''} ${isPassed?'passed':''}">
+        <div class="pt-icon ${isNext?'active':''}">${PRAYER_ICONS[k]}</div>
+        <div class="pt-time">${t}</div>
+      </div>`}).join('')}</div>
+    <div class="pt-progress">${keys.map((k,i)=>{
+      const isPassed=nextIdx===-1||i<nextIdx;
+      const isCurrent=i===prevIdx&&nextIdx>0;
+      let pct=0;
+      if(isPassed)pct=100;
+      else if(isCurrent){
+        const start=timeToMin(times[keys[i]]||'0:0');
+        const end=timeToMin(times[keys[nextIdx]]||'0:0');
+        if(end>start)pct=Math.min(100,Math.max(0,(nowMin-start)/(end-start)*100));
+      }
+      return`<div class="pt-bar"><div class="pt-fill" style="width:${pct}%"></div></div>`}).join('')}</div>`;
   }
-  row.innerHTML=`<div class="prayer-scroll">${keys.map((k,i)=>{
-    const t=times[apiKeys[i]]||'--:--';
-    const cls=nextIdx===i?'next':nextIdx===-1||i<nextIdx?'passed':'';
-    return`<div class="prayer-card ${cls}"><div class="prayer-name">${s(k)}</div><div class="prayer-time">${t}</div></div>`
-  }).join('')}</div>`;
+
+  // Prayer list card
+  const listCard=document.getElementById('prayerListCard');
+  if(listCard){
+    listCard.innerHTML=keys.map((k,i)=>{
+      const t=times[k]||'--:--';
+      const isNext=i===nextIdx;
+      return`<div class="pl-row ${isNext?'active':''}">
+        <div class="pl-icon ${isNext?'active':''}">${PRAYER_ICONS[k]}</div>
+        <div class="pl-name">${s(k)}</div>
+        <div class="pl-time ${isNext?'active':''}">${t}</div>
+      </div>`}).join('');
+  }
 }
 
 function startCountdown(){
@@ -439,13 +820,24 @@ function updateCountdown(){
   const keys=['fajr','sunrise','dhuhr','asr','maghrib','isha'];
   const untilKeys=['until_fajr','until_sunrise','until_dhuhr','until_asr','until_maghrib','until_isha'];
   const times=prayerTimes.times||prayerTimes;
-  let targetSec=-1,targetLabel='';
+  let targetSec=-1,targetLabel='',prevPrayer='',prevRemaining=0;
   for(let i=0;i<keys.length;i++){
     const t=times[keys[i]];
     if(!t)continue;
     const[h,m]=t.split(':').map(Number);
     const sec=h*3600+m*60;
-    if(sec>nowSec){targetSec=sec-nowSec;targetLabel=s(untilKeys[i]);break}
+    if(sec>nowSec){
+      targetSec=sec-nowSec;
+      targetLabel=s(untilKeys[i]);
+      if(i>0&&times[keys[i-1]]){
+        const pt=times[keys[i-1]];
+        const[ph,pm]=pt.split(':').map(Number);
+        const pSec=ph*3600+pm*60;
+        prevPrayer=s(keys[i-1]);
+        prevRemaining=sec-nowSec;
+      }
+      break;
+    }
   }
   if(targetSec<0){
     const t=times.fajr;
@@ -455,35 +847,80 @@ function updateCountdown(){
   const h=Math.floor(targetSec/3600);
   const m=Math.floor((targetSec%3600)/60);
   const sec=targetSec%60;
-  const pct=Math.min(1,targetSec/(6*3600));
-  const r=90;
-  const circ=2*Math.PI*r;
-  const offset=circ*(1-pct);
-  const today=new Date();
-  const hij=gregorianToHijri(today.getFullYear(),today.getMonth()+1,today.getDate());
-  const hijStr=`${hij.day} ${HIJRI_MONTHS[lang][hij.month-1]} ${hij.year}`;
-  const gregStr=`${today.getDate()} ${GREG_MONTHS[lang][today.getMonth()]} ${today.getFullYear()}`;
-  area.innerHTML=`<svg width="220" height="220" viewBox="0 0 220 220"><circle cx="110" cy="110" r="${r}" fill="none" stroke="var(--outline)" stroke-width="8"/><circle cx="110" cy="110" r="${r}" fill="none" stroke="var(--accent)" stroke-width="8" stroke-linecap="round" stroke-dasharray="${circ}" stroke-dashoffset="${offset}" transform="rotate(-90 110 110)" style="transition:stroke-dashoffset 1s"/><text x="110" y="95" text-anchor="middle" fill="var(--accent)" font-size="36" font-weight="800" font-family="Nunito Sans">${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}</text><text x="110" y="120" text-anchor="middle" fill="var(--text-secondary)" font-size="12" font-family="Nunito Sans">${targetLabel}</text></svg><div style="margin-top:8px;font-size:.85rem;color:var(--text-secondary)">${gregStr}</div><div style="font-size:.8rem;color:var(--text-tertiary)">${hijStr}</div>`;
+  const timeStr=`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+  const endStr=prevPrayer?`${prevPrayer} ${lang==='tr'?'bitiyor':'ends in'} ${String(Math.floor(prevRemaining/3600)).padStart(2,'0')}:${String(Math.floor((prevRemaining%3600)/60)).padStart(2,'0')}`:'';
+  area.innerHTML=`<div class="cd-label">${targetLabel}</div><div class="cd-time">${timeStr}</div>${endStr?`<div class="cd-sub">${endStr}</div>`:''}`;
 }
 
 async function loadDailyContent(){
   const today=dateStr(new Date());
+  // Daily Verse
   try{
-    const verse=await apiFetch(`/quran/daily?date=${today}`);
+    const raw=await apiFetch(`/quran/daily?date=${today}`);
+    const v=raw&&raw.data?raw.data:raw;
     const vd=document.getElementById('dailyVerse');
-    if(vd){
-      const v=verse;
-      vd.innerHTML=`<div class="card card-accent"><div style="font-weight:700;color:var(--accent);margin-bottom:8px">${s('daily_verse')}</div>${v.arabic?`<div class="arabic" style="margin-bottom:8px">${v.arabic}</div>`:''}${v.text||v.translation?`<div style="color:var(--text-secondary);font-size:.9rem;line-height:1.6">${v.text||v.translation||''}</div>`:''}${v.source||v.reference?`<div style="color:var(--text-tertiary);font-size:.8rem;margin-top:6px">${v.source||v.reference||''}</div>`:''}<button style="margin-top:8px;color:var(--accent);font-size:.8rem;font-weight:600" onclick="bookmarkItem('verse',${JSON.stringify(JSON.stringify(v))})">+ ${s('bookmarks')}</button></div>`;
+    if(vd&&v){
+      const surahRef=t(v.surahName||v.surah_name||v.surah)||'';
+      const verseRef=v.verseNumber||v.verse_number||v.verse||v.ayah||v.number||'';
+      const arabicName=tAr(v.surahName||v.name)||v.surahArabicName||'';
+      const subtitle=surahRef?(surahRef+(verseRef?' - '+(lang==='tr'?'Ayet':'Verse')+' '+verseRef:'')):'';
+      const sourceText=arabicName?`${arabicName} (${surahRef}), ${verseRef}`:(t(v.source)||t(v.reference)||subtitle);
+      const arabicText=v.arabic||tAr(v.text)||v.text_arabic||'';
+      const transText=t(v.translation)||t(v.text)||'';
+      const shareText=(arabicText+'\\n\\n'+transText+'\\n— '+sourceText).replace(/'/g,"\\'");
+      const bkData=JSON.stringify(JSON.stringify({arabic:arabicText,text:transText,source:sourceText}));
+      vd.innerHTML=`<div class="daily-card verse">
+        <div class="dc-header">
+          <div class="dc-icon"><i class="fa-solid fa-book-quran" style="font-size:1.1rem;color:var(--accent)"></i></div>
+          <div class="dc-title-wrap">
+            <div class="dc-title">${s('daily_verse')}</div>
+            ${subtitle?`<div class="dc-subtitle">${subtitle}</div>`:''}
+          </div>
+          <div class="dc-actions">
+            <button class="dc-action-btn" onclick="bookmarkItem('verse',${bkData})"><i class="fa-regular fa-bookmark"></i></button>
+            <button class="dc-action-btn" onclick="shareContent('${shareText}')"><i class="fa-solid fa-share-nodes"></i></button>
+          </div>
+        </div>
+        <div class="dc-divider"><span></span></div>
+        ${arabicText?`<div class="dc-arabic">${arabicText}</div><div class="dc-divider"><span></span></div>`:''}
+        ${transText?`<div class="dc-translation">"${transText}"</div>`:''}
+        ${sourceText?`<div class="dc-source">— ${sourceText}</div>`:''}
+      </div>`;
     }
-  }catch(e){}
+  }catch(e){console.warn('Daily verse error:',e)}
+  // Daily Hadith
   try{
-    const hadith=await apiFetch(`/hadiths/daily?date=${today}`);
+    const raw=await apiFetch(`/hadiths/daily?date=${today}`);
+    const h=raw&&raw.data?raw.data:raw;
     const hd=document.getElementById('dailyHadith');
-    if(hd){
-      const h=hadith;
-      hd.innerHTML=`<div class="card"><div style="font-weight:700;color:var(--accent);margin-bottom:8px">${s('daily_hadith')}</div>${h.arabic?`<div class="arabic" style="margin-bottom:8px">${h.arabic}</div>`:''}${h.text||h.translation?`<div style="color:var(--text-secondary);font-size:.9rem;line-height:1.6">${h.text||h.translation||''}</div>`:''}${h.source||h.reference?`<div style="color:var(--text-tertiary);font-size:.8rem;margin-top:6px">${h.source||h.reference||''}</div>`:''}<button style="margin-top:8px;color:var(--accent);font-size:.8rem;font-weight:600" onclick="bookmarkItem('hadith',${JSON.stringify(JSON.stringify(h))})">+ ${s('bookmarks')}</button></div>`;
+    if(hd&&h){
+      const collection=t(h.collection)||t(h.source)||'';
+      const book=t(h.book)||t(h.chapter)||t(h.bookName)||'';
+      const subtitle=collection+(book?' - '+book:'');
+      const sourceText=t(h.source)||t(h.reference)||collection;
+      const arabicText=h.arabic||tAr(h.text)||'';
+      const transText=t(h.translation)||t(h.text)||'';
+      const shareText=(arabicText?arabicText+'\\n\\n':'')+transText+'\\n— '+sourceText;
+      const bkData=JSON.stringify(JSON.stringify({arabic:arabicText,text:transText,source:sourceText}));
+      hd.innerHTML=`<div class="daily-card hadith">
+        <div class="dc-header">
+          <div class="dc-icon"><i class="fa-solid fa-book-open" style="font-size:1.1rem;color:var(--accent)"></i></div>
+          <div class="dc-title-wrap">
+            <div class="dc-title">${s('daily_hadith')}</div>
+            ${subtitle?`<div class="dc-subtitle">${subtitle}</div>`:''}
+          </div>
+          <div class="dc-actions">
+            <button class="dc-action-btn" onclick="bookmarkItem('hadith',${bkData})"><i class="fa-regular fa-bookmark"></i></button>
+            <button class="dc-action-btn" onclick="shareContent('${shareText.replace(/'/g,"\\'")}')"><i class="fa-solid fa-share-nodes"></i></button>
+          </div>
+        </div>
+        <div class="dc-divider"><span></span></div>
+        ${arabicText?`<div class="dc-arabic">${arabicText}</div><div class="dc-divider"><span></span></div>`:''}
+        ${transText?`<div class="dc-translation">"${transText}"</div>`:''}
+        ${sourceText?`<div class="dc-source">— ${sourceText}</div>`:''}
+      </div>`;
     }
-  }catch(e){}
+  }catch(e){console.warn('Daily hadith error:',e)}
 }
 
 /* QURAN */
@@ -500,7 +937,7 @@ async function loadSurahs(){
   try{
     if(!surahsCache)surahsCache=await apiFetch('/quran/surahs');
     const surahs=surahsCache.data||surahsCache;
-    el.innerHTML=surahs.map(s=>`<div class="surah-item" onclick="navigate('surah','${s.index||s.number}')"><div class="surah-num">${s.index||s.number}</div><div class="surah-info"><div class="name">${s.name||s.transliteration||''}</div><div class="meta">${s.revelation?((s.revelation==='meccan'||s.revelation==='Meccan')?STRINGS.meccan[lang]:STRINGS.medinan[lang]):''} · ${s.numberOfAyahs||s.versesCount||s.verses||''} ${STRINGS.verses[lang]}</div></div><div class="surah-arabic">${s.arabicName||s.name_arabic||''}</div></div>`).join('');
+    el.innerHTML=surahs.map(sr=>`<div class="surah-item" onclick="navigate('surah','${sr.index||sr.number}')"><div class="surah-num"><span>${sr.index||sr.number}</span></div><div class="surah-info"><div class="name">${t(sr.name)}</div><div class="meta">${sr.revelation?((sr.revelation==='meccan'||sr.revelation==='Meccan')?STRINGS.meccan[lang]:STRINGS.medinan[lang]):''} · ${sr.verseCount||sr.numberOfAyahs||sr.versesCount||''} ${STRINGS.verses[lang]}</div></div><div class="surah-arabic">${tAr(sr.name)}</div></div>`).join('');
   }catch(e){el.innerHTML=`<p style="color:var(--error)">${STRINGS.error[lang]}</p>`}
 }
 
@@ -509,7 +946,7 @@ async function loadJuzs(){
   try{
     if(!juzsCache)juzsCache=await apiFetch('/quran/juzs');
     const juzs=juzsCache.data||juzsCache;
-    el.innerHTML=juzs.map((j,i)=>`<div class="card" style="cursor:pointer"><div style="font-weight:700">${s('juz')} ${j.index||j.number||i+1}</div><div style="font-size:.85rem;color:var(--text-secondary)">${j.start||''} - ${j.end||''}</div></div>`).join('');
+    el.innerHTML=juzs.map((j,i)=>`<div class="card" style="cursor:pointer"><div style="font-weight:700">${s('juz')} ${j.index||j.number||i+1}</div><div style="font-size:.85rem;color:var(--text-secondary)">${t(j.start)||''} - ${t(j.end)||''}</div></div>`).join('');
   }catch(e){el.innerHTML=`<p style="color:var(--error)">${STRINGS.error[lang]}</p>`}
 }
 
@@ -531,19 +968,27 @@ async function searchQuran(){
     const data=await apiFetch(`/quran/search?q=${encodeURIComponent(q)}&lang=turkish&limit=50`,true);
     const results=data.data||data;
     if(!results||!results.length){el.innerHTML=`<p style="color:var(--text-secondary);text-align:center">${s('no_results')}</p>`;return}
-    el.innerHTML=results.map(r=>`<div class="verse-block"><div class="verse-arabic">${r.arabic||''}</div><div class="verse-translation">${r.text||r.translation||''}</div><div style="font-size:.75rem;color:var(--text-tertiary);margin-top:4px">${r.surahName||''} ${r.surah||''}:${r.verse||r.ayah||''}</div></div>`).join('');
+    el.innerHTML=results.map(r=>{const ar=(r.text&&typeof r.text==='object'?r.text.arabic:'')||r.arabic||tAr(r.text)||'';const tr=(r.text&&typeof r.text==='object'?(lang==='tr'?r.text.turkish:lang==='en'?r.text.english:r.text.arabic):'')||t(r.translation)||t(r.text)||'';const sn=r.surah?(t(r.surah.name)||''):t(r.surahName)||'';return`<div class="verse-block"><div class="verse-arabic">${ar}</div><div class="verse-translation">${tr}</div><div style="font-size:.75rem;color:var(--text-tertiary);margin-top:4px">${sn} ${r.surahIndex||r.surah?.index||''}:${r.verseIndex||r.verse||r.verseNumber||r.ayah||''}</div></div>`}).join('');
   }catch(e){el.innerHTML=`<p style="color:var(--error)">${s('error')}</p>`}
 }
 
 async function renderSurah(index){
   const c=document.getElementById('surahContent');
-  c.innerHTML=`<div class="header"><button class="header-btn" onclick="navigate('quran')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg></button><h1>${s('surah')}</h1><div style="width:44px"></div></div><div class="container"><div class="loading"><div class="spinner"></div>${s('loading')}</div></div>`;
+  c.innerHTML=`<div class="header"><button class="header-btn" onclick="navigate('quran')"><i class="fa-solid fa-chevron-left"></i></button><h1>${s('surah')}</h1><div style="width:44px"></div></div><div class="container"><div class="loading"><div class="spinner"></div>${s('loading')}</div></div>`;
   try{
-    const data=await apiFetch(`/quran/surahs/${index}`);
-    const surah=data.data||data;
-    const verses=surah.verses||surah.ayahs||[];
+    const [surahData,versesData]=await Promise.all([apiFetch(`/quran/surahs/${index}`),apiFetch(`/quran/verses?surah=${index}`)]);
+    const surah=surahData.data||surahData;
+    const verses=(versesData.data||versesData)||[];
+    const surahName=t(surah.name);
+    const surahArabic=tAr(surah.name);
+    const surahTranslit=tLit(surah.name);
     const container=c.querySelector('.container');
-    container.innerHTML=`<div style="text-align:center;margin-bottom:16px"><h2>${surah.name||surah.transliteration||''}</h2><div class="arabic" style="font-size:1.5rem;margin:8px 0">${surah.arabicName||surah.name_arabic||''}</div><div style="font-size:.85rem;color:var(--text-secondary)">${verses.length} ${s('verses')}</div></div>${index!=='1'&&index!=='9'?'<div class="arabic" style="text-align:center;font-size:1.3rem;padding:16px 0;border-bottom:1px solid var(--outline)">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>':''}${verses.map(v=>`<div class="verse-block"><div class="verse-arabic">${v.arabic||v.text_arabic||''} <span class="verse-num">${v.number||v.verse||v.ayah||''}</span></div><div class="verse-translation">${v.translation||v.text||''}</div><button style="color:var(--accent);font-size:.75rem;font-weight:600;margin-top:4px" onclick="bookmarkItem('verse',${JSON.stringify(JSON.stringify({arabic:v.arabic||v.text_arabic,text:v.translation||v.text,source:(surah.name||'')+' '+(v.number||v.verse||'')}))})">+ ${s('bookmarks')}</button></div>`).join('')}`;
+    container.innerHTML=`<div style="text-align:center;margin-bottom:16px"><h2>${surahName}</h2>${surahArabic?`<div class="arabic" style="font-size:1.5rem;margin:8px 0">${surahArabic}</div>`:''}<div style="font-size:.85rem;color:var(--text-secondary)">${surah.verseCount||verses.length} ${s('verses')}</div></div>${index!=='1'&&index!=='9'?'<div class="arabic" style="text-align:center;font-size:1.3rem;padding:16px 0;border-bottom:1px solid var(--outline)">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>':''}${verses.map(v=>{
+      const vArabic=(v.text&&typeof v.text==='object'?v.text.arabic:'')||v.arabic||tAr(v.text)||'';
+      const vTrans=(v.text&&typeof v.text==='object'?(lang==='tr'?v.text.turkish:lang==='en'?v.text.english:v.text.arabic):'')||t(v.translation)||t(v.text)||'';
+      const vNum=v.verseIndex||v.number||v.verseNumber||v.verse||v.ayah||'';
+      const bk={arabic:vArabic,text:vTrans,source:surahName+' '+vNum};
+      return`<div class="verse-block"><div class="verse-arabic">${vArabic} <span class="verse-num">${vNum}</span></div><div class="verse-translation">${vTrans}</div><div class="verse-actions"><button class="verse-action-btn" onclick="bookmarkItem('verse',${JSON.stringify(JSON.stringify(bk))})"><i class="fa-regular fa-bookmark"></i> ${s('bookmarks')}</button><button class="verse-action-btn" onclick="shareContent('${vArabic.replace(/'/g,"\\'")}\\n\\n${vTrans.replace(/'/g,"\\'")}\\n— ${surahName} ${vNum}')"><i class="fa-solid fa-share-nodes"></i> ${s('share')}</button></div></div>`}).join('')}`;
   }catch(e){c.querySelector('.container').innerHTML=`<p style="color:var(--error)">${s('error')}</p><button class="btn btn-outline" onclick="renderSurah('${index}')" style="margin-top:12px">${s('retry')}</button>`}
 }
 
@@ -561,7 +1006,7 @@ async function loadMusicCategories(){
   try{
     if(!musicCategoriesCache)musicCategoriesCache=await apiFetch('/music/categories');
     const cats=musicCategoriesCache.data||musicCategoriesCache||[];
-    el.innerHTML=`<button class="chip ${!selectedMusicCategory?'active':''}" onclick="selectedMusicCategory='';loadMusic()">${s('all')}</button>`+cats.map(c=>`<button class="chip ${selectedMusicCategory===c.id?'active':''}" onclick="selectedMusicCategory='${c.id}';loadMusic()">${c.name||c.title||c.id}</button>`).join('');
+    el.innerHTML=`<button class="chip ${!selectedMusicCategory?'active':''}" onclick="selectedMusicCategory='';loadMusic()">${s('all')}</button>`+cats.map(c=>`<button class="chip ${selectedMusicCategory===c.id?'active':''}" onclick="selectedMusicCategory='${c.id}';loadMusic()">${t(c.name)||t(c.title)||c.id}</button>`).join('');
   }catch(e){}
 }
 
@@ -575,7 +1020,7 @@ async function loadMusic(){
     const data=await apiFetch(url);
     const list=data.data||data||[];
     trackList=list;
-    el.innerHTML=list.length?list.map((t,i)=>`<div class="music-item" onclick="playTrack(${i})"><img class="music-cover" src="${API}/music/${t.id||t._id}/cover" alt="" onerror="this.style.display='none'"><div class="music-info"><div class="title">${t.name||t.title||''}</div><div class="artist">${t.artist||''}</div><div class="plays">${t.playCount||0} plays</div></div></div>`).join(''):`<p style="color:var(--text-secondary);text-align:center">${s('no_results')}</p>`;
+    el.innerHTML=list.length?list.map((tr,i)=>`<div class="music-item" onclick="playTrack(${i})"><img class="music-cover" src="${API}/music/${tr.id||tr._id}/cover" alt="" onerror="this.style.display='none'"><div class="music-info"><div class="title">${t(tr.name)||t(tr.title)||''}</div><div class="artist">${t(tr.artist)||''}</div><div class="plays">${tr.playCount||0} plays</div></div></div>`).join(''):`<p style="color:var(--text-secondary);text-align:center">${s('no_results')}</p>`;
   }catch(e){el.innerHTML=`<p style="color:var(--error)">${s('error')}</p>`}
 }
 
@@ -588,7 +1033,7 @@ async function searchMusic(){
     const data=await apiFetch(`/music?q=${encodeURIComponent(q)}`,true);
     const list=data.data||data||[];
     trackList=list;
-    el.innerHTML=list.length?list.map((t,i)=>`<div class="music-item" onclick="playTrack(${i})"><img class="music-cover" src="${API}/music/${t.id||t._id}/cover" alt="" onerror="this.style.display='none'"><div class="music-info"><div class="title">${t.name||t.title||''}</div><div class="artist">${t.artist||''}</div></div></div>`).join(''):`<p style="color:var(--text-secondary);text-align:center">${s('no_results')}</p>`;
+    el.innerHTML=list.length?list.map((tr,i)=>`<div class="music-item" onclick="playTrack(${i})"><img class="music-cover" src="${API}/music/${tr.id||tr._id}/cover" alt="" onerror="this.style.display='none'"><div class="music-info"><div class="title">${t(tr.name)||t(tr.title)||''}</div><div class="artist">${t(tr.artist)||''}</div></div></div>`).join(''):`<p style="color:var(--text-secondary);text-align:center">${s('no_results')}</p>`;
   }catch(e){el.innerHTML=`<p style="color:var(--error)">${s('error')}</p>`}
 }
 
@@ -606,11 +1051,11 @@ function playTrack(idx){
 function updatePlayerUI(){
   if(!currentTrack)return;
   const id=currentTrack.id||currentTrack._id;
-  document.getElementById('mpTitle').textContent=currentTrack.name||currentTrack.title||'';
-  document.getElementById('mpArtist').textContent=currentTrack.artist||'';
+  document.getElementById('mpTitle').textContent=t(currentTrack.name)||t(currentTrack.title)||'';
+  document.getElementById('mpArtist').textContent=t(currentTrack.artist)||'';
   document.getElementById('mpCover').src=`${API}/music/${id}/cover`;
-  document.getElementById('fpTitle').textContent=currentTrack.name||currentTrack.title||'';
-  document.getElementById('fpArtist').textContent=currentTrack.artist||'';
+  document.getElementById('fpTitle').textContent=t(currentTrack.name)||t(currentTrack.title)||'';
+  document.getElementById('fpArtist').textContent=t(currentTrack.artist)||'';
   document.getElementById('fpCover').src=`${API}/music/${id}/cover`;
 }
 function togglePlay(){if(audioPlayer.paused)audioPlayer.play().catch(()=>{});else audioPlayer.pause()}
@@ -628,20 +1073,258 @@ audioPlayer.addEventListener('timeupdate',()=>{
   document.getElementById('fpDuration').textContent=formatTime(audioPlayer.duration);
 });
 audioPlayer.addEventListener('play',()=>{
-  const icon='<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
-  document.getElementById('mpPlayIcon').innerHTML=icon;
-  document.getElementById('fpPlayIcon').innerHTML=icon;
+  document.getElementById('mpPlayIcon').className='fa-solid fa-pause';
+  document.getElementById('fpPlayIcon').className='fa-solid fa-pause';
 });
 audioPlayer.addEventListener('pause',()=>{
-  const icon='<polygon points="5,3 19,12 5,21"/>';
-  document.getElementById('mpPlayIcon').innerHTML=icon;
-  document.getElementById('fpPlayIcon').innerHTML=icon;
+  document.getElementById('mpPlayIcon').className='fa-solid fa-play';
+  document.getElementById('fpPlayIcon').className='fa-solid fa-play';
 });
 audioPlayer.addEventListener('ended',()=>nextTrack());
 
-/* RISALE */
+/* NEARBY MOSQUES */
+function openNearbyMosques(){
+  if(!loc||!loc.lat||!loc.lon){showLocationModal();return}
+  const q=lang==='tr'?'cami':lang==='ar'?'مسجد':'mosque';
+  window.open(`https://www.google.com/maps/search/${encodeURIComponent(q)}/@${loc.lat},${loc.lon},15z`,'_blank');
+  navigate('home');
+}
+
+/* RISALE-I NUR */
+const RISALE_BASE='https://rnknesriyat.com/res/metinler/tr';
+const RISALE_BOOKS=[
+{key:'sozler',name:{tr:'Sözler',en:'The Words',ar:'الكلمات'}},
+{key:'mektubat',name:{tr:'Mektubat',en:'The Letters',ar:'المكتوبات'}},
+{key:'lemalar',name:{tr:"Lem'alar",en:'The Flashes',ar:'اللمعات'}},
+{key:'sualar',name:{tr:'Şuâlar',en:'The Rays',ar:'الشعاعات'}},
+{key:'asamusa',name:{tr:'Asa-yı Musa',en:'The Staff of Moses',ar:'عصا موسى'}},
+{key:'isarat',name:{tr:"İşârâtü'l-İ'câz",en:"Signs of Miraculousness",ar:'إشارات الإعجاز'}},
+{key:'mesnevi',name:{tr:'Mesnevî-i Nuriye',en:'Al-Mathnawi Al-Nuri',ar:'المثنوي العربي النوري'}},
+{key:'muhakemat',name:{tr:'Muhakemat',en:'The Reasonings',ar:'المحاكمات'}},
+{key:'barla',name:{tr:'Barla Lahikası',en:'Barla Letters',ar:'ملحق بارلا'}},
+{key:'kastamonu',name:{tr:'Kastamonu Lahikası',en:'Kastamonu Letters',ar:'ملحق قسطموني'}},
+{key:'emirdag1',name:{tr:'Emirdağ Lahikası 1',en:'Emirdag Letters 1',ar:'ملحق أمير داغ 1'}},
+{key:'emirdag2',name:{tr:'Emirdağ Lahikası 2',en:'Emirdag Letters 2',ar:'ملحق أمير داغ 2'}},
+{key:'tarihce',name:{tr:'Tarihçe-i Hayat',en:'Biography',ar:'السيرة الذاتية'}},
+{key:'sikke',name:{tr:'Sikke-i Tasdîk-i Gaybî',en:'The Stamp of the Unseen',ar:'ختم التصديق الغيبي'}},
+{key:'imankufur',name:{tr:'İman ve Küfür Muvazeneleri',en:'Belief and Unbelief',ar:'موازنات الإيمان والكفر'}},
+{key:'abed',name:{tr:'Âsâr-ı Bedîiyye',en:'Collected Works',ar:'الآثار البديعية'}},
+{key:'ilkeserler',name:{tr:'İlk Eserler',en:'Early Works',ar:'الأعمال الأولى'}}
+];
+
+let risaleCache={};
+
 function renderRisale(){
-  document.getElementById('risaleContent').innerHTML=`<div style="text-align:center;padding:60px 20px"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="opacity:.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><h2 style="margin-top:16px;color:var(--accent)">${s('coming_soon')}</h2><p style="color:var(--text-secondary);margin-top:8px">${lang==='tr'?'Risale-i Nur okuma özelliği Android uygulamasında mevcuttur.':lang==='en'?'Risale-i Nur reading is available in the Android app.':'قراءة رسائل النور متاحة في تطبيق أندرويد.'}</p></div>`;
+  const c=document.getElementById('risaleContent');
+  const lastKey=localStorage.getItem('risale_last_book');
+  const lastBook=lastKey?RISALE_BOOKS.find(b=>b.key===lastKey):null;
+  c.innerHTML=`
+  <div style="padding:16px 0 8px"><div style="font-size:1.3rem;font-weight:900;margin-bottom:4px">${s('risale_books')}</div>
+  <div style="font-size:.85rem;color:var(--text-secondary)">Bediüzzaman Said Nursî</div></div>
+  ${lastBook?`<div class="card card-accent" style="cursor:pointer;margin-top:8px" onclick="navigate('risale-book','${lastBook.key}')">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="width:46px;height:46px;border-radius:14px;background:var(--accent-glow-strong);display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:var(--accent)"><i class="fa-solid fa-book-open"></i></div>
+      <div style="flex:1;min-width:0"><div style="font-weight:800;font-size:.9rem">${s('continue_reading')}</div>
+      <div style="font-size:.82rem;color:var(--text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t(lastBook.name)}</div></div>
+      <i class="fa-solid fa-chevron-right" style="color:var(--accent)"></i>
+    </div></div>`:''}
+  <div class="risale-grid stagger" style="margin-top:14px">
+    ${RISALE_BOOKS.map(b=>`<div class="risale-book-card" onclick="navigate('risale-book','${b.key}')">
+      <div class="rbc-cover"><img src="${RISALE_BASE}/${b.key}/${b.key}.png" alt="${t(b.name)}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="rbc-fallback" style="display:none"><i class="fa-solid fa-book"></i></div></div>
+      <div class="rbc-name">${t(b.name)}</div>
+    </div>`).join('')}
+  </div>`;
+}
+
+async function renderRisaleBook(bookKey){
+  const c=document.getElementById('risaleContent');
+  const book=RISALE_BOOKS.find(b=>b.key===bookKey);
+  if(!book){navigate('risale');return}
+  c.innerHTML=`<div class="header" style="padding:0 0 12px"><button class="header-btn" onclick="navigate('risale')"><i class="fa-solid fa-chevron-left"></i></button><h1 style="font-size:1rem">${t(book.name)}</h1><div style="width:44px"></div></div><div class="loading"><div class="spinner"></div>${s('loading')}</div>`;
+  try{
+    if(!risaleCache[bookKey]){
+      const [metaRes,textRes]=await Promise.all([
+        fetch(`${RISALE_BASE}/${bookKey}/${bookKey}.json`),
+        fetch(`${RISALE_BASE}/${bookKey}/${bookKey}.txt`)
+      ]);
+      const metadata=await metaRes.json();
+      const rawText=await textRes.text();
+      risaleCache[bookKey]={metadata,rawText,blocks:parseRisaleBlocks(rawText),sections:parseRisaleTOC(metadata)};
+    }
+    const {metadata,blocks,sections}=risaleCache[bookKey];
+    const meta=metadata.meta_data||{};
+    const progress=JSON.parse(localStorage.getItem(`risale_pos_${bookKey}`)||'0');
+    localStorage.setItem('risale_last_book',bookKey);
+
+    c.innerHTML=`<div class="header" style="padding:0 0 12px"><button class="header-btn" onclick="navigate('risale')"><i class="fa-solid fa-chevron-left"></i></button><h1 style="font-size:1rem">${t(book.name)}</h1><div style="width:44px"></div></div>
+    <div style="text-align:center;padding:20px 0 16px">
+      <div style="width:120px;height:170px;margin:0 auto 14px;border-radius:12px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.25);border:1px solid var(--outline)">
+        <img src="${RISALE_BASE}/${bookKey}/${bookKey}.png" style="width:100%;height:100%;object-fit:cover" alt="" onerror="this.parentElement.innerHTML='<div style=\\'display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:var(--surface-elevated);font-size:2.5rem;color:var(--accent)\\'><i class=\\'fa-solid fa-book\\'></i></div>'">
+      </div>
+      <div style="font-size:1.2rem;font-weight:900">${t(book.name)}</div>
+      <div style="font-size:.82rem;color:var(--text-secondary);margin-top:4px">${meta.first_page?`${meta.last_page-meta.first_page+1} sayfa`:''}</div>
+    </div>
+    ${progress>0?`<div class="card card-accent" style="cursor:pointer" onclick="openRisaleReader('${bookKey}',${progress})">
+      <div style="display:flex;align-items:center;gap:12px"><i class="fa-solid fa-play-circle" style="font-size:1.3rem;color:var(--accent)"></i><div style="flex:1"><div style="font-weight:700;font-size:.9rem">${s('continue_reading')}</div></div><i class="fa-solid fa-chevron-right" style="color:var(--accent)"></i></div></div>`:''}
+    <button class="btn btn-primary" style="width:100%;margin-bottom:14px" onclick="openRisaleReader('${bookKey}',0)"><i class="fa-solid fa-book-open"></i> ${lang==='tr'?'Okumaya Başla':'Start Reading'}</button>
+    ${sections.length>0?`<div style="font-weight:800;font-size:.95rem;margin-bottom:10px">${s('table_of_contents')}</div>
+    <div class="stagger">${sections.map(sec=>`<div class="section-item" onclick="openRisaleReader('${bookKey}',${sec.pageNo||0})">
+      <div class="si-num"><span>${sec.pageNo||''}</span></div>
+      <div class="si-content"><div class="si-title">${sec.title}</div>${sec.children&&sec.children.length?`<div style="font-size:.75rem;color:var(--text-tertiary)">${sec.children.length} alt bölüm</div>`:''}</div>
+      <i class="fa-solid fa-chevron-right" style="font-size:.7rem;color:var(--text-tertiary)"></i>
+    </div>`).join('')}</div>`:''}`;
+  }catch(e){
+    console.error('Risale load error:',e);
+    c.innerHTML=`<div class="header" style="padding:0 0 12px"><button class="header-btn" onclick="navigate('risale')"><i class="fa-solid fa-chevron-left"></i></button><h1>${t(book.name)}</h1><div style="width:44px"></div></div>
+    <div style="text-align:center;padding:40px"><p style="color:var(--error)">${s('error')}</p><button class="btn btn-outline" onclick="renderRisaleBook('${bookKey}')" style="margin-top:12px">${s('retry')}</button></div>`;
+  }
+}
+
+function parseRisaleTOC(metadata){
+  const contents=metadata.contents;
+  if(!contents||!contents.children)return[];
+  return contents.children.map(c=>{
+    const obj=typeof c==='string'?{}:c;
+    return{title:obj.title||'',key:obj.key||'',pageNo:obj.pageNo||0,listIndex:obj.listIndex||0,audioUrl:obj.audioUrl||'',children:obj.children?obj.children.map(cc=>({title:cc.title||'',pageNo:cc.pageNo||0,audioUrl:cc.audioUrl||''})):[]};
+  });
+}
+
+function parseRisaleBlocks(raw){
+  const blocks=[];
+  const lines=raw.split('\n');
+  const pending=[];
+  function flush(){
+    const txt=pending.join(' ').trim();
+    if(txt){
+      blocks.push({type:'paragraph',spans:parseRisaleInline(txt)});
+    }
+    pending.length=0;
+  }
+  for(const rawLine of lines){
+    const line=rawLine.trim();
+    if(!line){flush();continue}
+    if(/^#\d+$/.test(line)){flush();blocks.push({type:'page',num:parseInt(line.substring(1))});continue}
+    if(line.startsWith('~')){
+      flush();
+      let ar=line.substring(1);
+      if(ar.includes('|@'))ar=ar.split('|@')[0];
+      else if(ar.includes('|'))ar=ar.split('|')[0];
+      else ar=ar.replace(/@$/,'');
+      if(ar.trim())blocks.push({type:'arabic',text:ar.trim()});
+      continue;
+    }
+    if(line===',* * *>'){flush();blocks.push({type:'separator'});continue}
+    if(line.startsWith(',')&&line.endsWith('>')){
+      flush();let inner=line.slice(1,-1).trim();if(inner.endsWith('>'))inner=inner.slice(0,-1).trim();
+      if(inner)blocks.push({type:'centered',spans:parseRisaleInline(inner)});continue;
+    }
+    if(line.startsWith('\u20AC')&&line.endsWith('>')){flush();blocks.push({type:'bigtitle',text:line.slice(1,-1).trim()});continue}
+    if(line.startsWith('&')&&line.endsWith('>')){flush();blocks.push({type:'title',text:line.slice(1,-1).trim()});continue}
+    if(line.startsWith('<')&&line.endsWith('>')&&!line.startsWith('<<')){flush();blocks.push({type:'header',text:line.slice(1,-1).trim()});continue}
+    if(line.startsWith('\u2211')){flush();const t=line.endsWith('>')?line.slice(1,-1).trim():line.substring(1).trim();blocks.push({type:'bigtitle',text:t});continue}
+    if(line.startsWith('\u222B')){flush();const t=line.endsWith('>')?line.slice(1,-1).trim():line.substring(1).trim();if(t)blocks.push({type:'indented',spans:parseRisaleInline(t)});continue}
+    if(line.startsWith('\u00A7')&&line.endsWith('>')){flush();blocks.push({type:'author',text:line.slice(1,-1).trim()});continue}
+    if(line.startsWith('\u00F7')&&line.endsWith('>')){flush();blocks.push({type:'attribution',text:line.slice(1,-1).trim()});continue}
+    if(line.startsWith('{')&&line.endsWith('}')&&!line.includes('|')){flush();blocks.push({type:'quote',spans:parseRisaleInline(line.slice(1,-1).trim())});continue}
+    pending.push(line);
+  }
+  flush();
+  return blocks;
+}
+
+function parseRisaleInline(text){
+  if(!text)return[];
+  const spans=[];
+  const re=/\\([^>]+?)>|﹛([^﹜]*?)\|﹜/g;
+  let last=0,m;
+  while((m=re.exec(text))!==null){
+    if(m.index>last)spans.push({type:'normal',text:cleanFootnotes(text.substring(last,m.index))});
+    if(m[1])spans.push({type:'bold',text:m[1].trim()});
+    else if(m[2])spans.push({type:'inlineArabic',text:m[2].trim()});
+    last=m.index+m[0].length;
+  }
+  if(last<text.length)spans.push({type:'normal',text:cleanFootnotes(text.substring(last))});
+  return spans;
+}
+
+function cleanFootnotes(text){return text.replace(/\{?\(\d+\)\|[^}]*\}?/g,'').trim()}
+
+function openRisaleReader(bookKey,startBlock){navigate('risale-reader',bookKey+'/'+startBlock)}
+
+function renderRisaleReader(param){
+  const parts=param.split('/');
+  const bookKey=parts[0];
+  const startIdx=parseInt(parts[1])||0;
+  const book=RISALE_BOOKS.find(b=>b.key===bookKey);
+  if(!book||!risaleCache[bookKey]){navigate('risale-book',bookKey);return}
+  const {blocks}=risaleCache[bookKey];
+  const c=document.getElementById('risaleContent');
+  const fontSize=parseInt(localStorage.getItem('risale_fontsize')||'16');
+
+  // Find blocks for this page range (show ~50 blocks at a time for performance)
+  let startI=0;
+  if(startIdx>0){
+    // Find first block at or after this page number
+    for(let i=0;i<blocks.length;i++){
+      if(blocks[i].type==='page'&&blocks[i].num>=startIdx){startI=i;break}
+    }
+  }
+  const chunk=blocks.slice(startI,startI+80);
+  const hasMore=startI+80<blocks.length;
+  const hasPrev=startI>0;
+
+  c.innerHTML=`<div class="header" style="padding:0 0 8px">
+    <button class="header-btn" onclick="navigate('risale-book','${bookKey}')"><i class="fa-solid fa-chevron-left"></i></button>
+    <h1 style="font-size:.9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:60%">${t(book.name)}</h1>
+    <div style="display:flex;gap:6px">
+      <button class="header-btn" onclick="changeRisaleFont(-1)"><i class="fa-solid fa-minus" style="font-size:.7rem"></i></button>
+      <button class="header-btn" onclick="changeRisaleFont(1)"><i class="fa-solid fa-plus" style="font-size:.7rem"></i></button>
+    </div>
+  </div>
+  <div class="risale-reader" style="font-size:${fontSize}px">
+    ${chunk.map(b=>renderRisaleBlock(b)).join('')}
+  </div>
+  <div style="display:flex;gap:12px;padding:20px 0 40px;justify-content:space-between">
+    ${hasPrev?`<button class="btn btn-outline" onclick="openRisaleReader('${bookKey}',${Math.max(0,startIdx-50)})"><i class="fa-solid fa-chevron-left"></i> ${s('previous')}</button>`:'<div></div>'}
+    ${hasMore?`<button class="btn btn-primary" onclick="openRisaleReader('${bookKey}',${startIdx+50})"><span>${s('next')}</span> <i class="fa-solid fa-chevron-right"></i></button>`:''}
+  </div>`;
+  localStorage.setItem(`risale_pos_${bookKey}`,String(startIdx));
+  window.scrollTo(0,0);
+}
+
+function renderRisaleBlock(b){
+  switch(b.type){
+    case'page':return`<div class="r-page-marker">[${b.num}]</div>`;
+    case'arabic':return`<div class="r-arabic-verse">${b.text}</div>`;
+    case'title':return`<div class="r-title">${b.text}<div class="r-title-line"></div></div>`;
+    case'bigtitle':return`<div class="r-bigtitle">${b.text}</div>`;
+    case'header':return`<div class="r-header">${b.text}</div>`;
+    case'centered':return`<div class="r-centered">${renderSpans(b.spans)}</div>`;
+    case'paragraph':return`<div class="r-paragraph">${renderSpans(b.spans)}</div>`;
+    case'indented':return`<div class="r-indented">${renderSpans(b.spans)}</div>`;
+    case'quote':return`<div class="r-quote"><div class="r-quote-bar"></div><div>${renderSpans(b.spans)}</div></div>`;
+    case'author':return`<div class="r-author">${b.text}</div>`;
+    case'attribution':return`<div class="r-attribution">${b.text}</div>`;
+    case'separator':return`<div class="r-separator"><span></span><span></span><span></span></div>`;
+    default:return'';
+  }
+}
+
+function renderSpans(spans){
+  if(!spans)return'';
+  return spans.map(sp=>{
+    if(sp.type==='bold')return`<strong>${sp.text}</strong>`;
+    if(sp.type==='inlineArabic')return`<span class="r-inline-arabic">${sp.text}</span>`;
+    return sp.text;
+  }).join('');
+}
+
+function changeRisaleFont(delta){
+  const cur=parseInt(localStorage.getItem('risale_fontsize')||'16');
+  const nv=Math.max(12,Math.min(24,cur+delta));
+  localStorage.setItem('risale_fontsize',String(nv));
+  const el=document.querySelector('.risale-reader');
+  if(el)el.style.fontSize=nv+'px';
 }
 
 /* SETTINGS */
@@ -658,8 +1341,8 @@ function renderSettings(){
 <div class="setting-row" style="border:none"><div class="label">${s('developer')} Mert Golcu</div></div>
 </div>
 <div class="card">
-<a class="setting-row" href="privacy_policy_en.txt" target="_blank"><div class="label">Privacy Policy</div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,18 15,12 9,6"/></svg></a>
-<a class="setting-row" style="border:none" href="terms_of_use_en.txt" target="_blank"><div class="label">Terms of Use</div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,18 15,12 9,6"/></svg></a>
+<a class="setting-row" href="privacy_policy_en.txt" target="_blank"><div class="label">Privacy Policy</div><i class="fa-solid fa-chevron-right" style="font-size:0.8rem;color:var(--text-tertiary)"></i></a>
+<a class="setting-row" style="border:none" href="terms_of_use_en.txt" target="_blank"><div class="label">Terms of Use</div><i class="fa-solid fa-chevron-right" style="font-size:0.8rem;color:var(--text-tertiary)"></i></a>
 </div>`;
 }
 
@@ -672,7 +1355,7 @@ function renderQibla(){
   if(!loc){c.innerHTML=`<p style="text-align:center;padding:40px;color:var(--text-secondary)">${s('error')}</p>`;return}
   const bearing=calcQiblaBearing(loc.lat,loc.lon);
   const dist=haversineDistance(loc.lat,loc.lon,KAABA.lat,KAABA.lon);
-  c.innerHTML=`<div class="header" style="padding:0;margin-bottom:12px"><button class="header-btn" onclick="navigate('home')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg></button><h1>${s('qibla')}</h1><div style="width:44px"></div></div><div style="text-align:center"><div class="compass-wrap"><div class="compass-ring" id="compassRing"><div class="compass-n">N</div><div class="qibla-arrow" id="qiblaArrow" style="transform:rotate(${bearing}deg)"></div><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:.8rem;color:var(--accent);font-weight:700">${Math.round(bearing)}°</div></div></div><div style="font-size:1.1rem;font-weight:700;color:var(--accent)">${s('qibla')}: ${Math.round(bearing)}°</div><div style="color:var(--text-secondary);margin-top:4px">${Math.round(dist)} km</div><div style="color:var(--text-tertiary);font-size:.8rem;margin-top:12px">${lang==='tr'?'Pusula kalibrasyonu için telefonunuzu 8 şeklinde hareket ettirin':lang==='en'?'Move your phone in a figure 8 to calibrate compass':'حرك هاتفك بشكل 8 لمعايرة البوصلة'}</div></div>`;
+  c.innerHTML=`<div class="header" style="padding:0;margin-bottom:12px"><button class="header-btn" onclick="navigate('home')"><i class="fa-solid fa-chevron-left"></i></button><h1>${s('qibla')}</h1><div style="width:44px"></div></div><div style="text-align:center"><div class="compass-wrap"><div class="compass-ring" id="compassRing"><div class="compass-n">N</div><div class="qibla-arrow" id="qiblaArrow" style="transform:rotate(${bearing}deg)"></div><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:.8rem;color:var(--accent);font-weight:700">${Math.round(bearing)}°</div></div></div><div style="font-size:1.1rem;font-weight:700;color:var(--accent)">${s('qibla')}: ${Math.round(bearing)}°</div><div style="color:var(--text-secondary);margin-top:4px">${Math.round(dist)} km</div><div style="color:var(--text-tertiary);font-size:.8rem;margin-top:12px">${lang==='tr'?'Pusula kalibrasyonu için telefonunuzu 8 şeklinde hareket ettirin':lang==='en'?'Move your phone in a figure 8 to calibrate compass':'حرك هاتفك بشكل 8 لمعايرة البوصلة'}</div></div>`;
   startCompass(bearing);
 }
 
@@ -707,7 +1390,7 @@ function startCompass(qiblaBearing){
 function renderDhikr(){
   const c=document.getElementById('dhikrContent');
   const counts=JSON.parse(localStorage.getItem('sahur_dhikr')||'{}');
-  c.innerHTML=`<div class="header" style="padding:0;margin-bottom:12px"><button class="header-btn" onclick="navigate('home')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg></button><h1>${s('dhikr')}</h1><div style="width:44px"></div></div>${DHIKRS.map(d=>{
+  c.innerHTML=`<div class="header" style="padding:0;margin-bottom:12px"><button class="header-btn" onclick="navigate('home')"><i class="fa-solid fa-chevron-left"></i></button><h1>${s('dhikr')}</h1><div style="width:44px"></div></div>${DHIKRS.map(d=>{
     const cnt=counts[d.id]||0;
     const pct=Math.min(100,cnt/d.target*100);
     return`<div class="card" style="cursor:pointer" onclick="navigate('dhikr-counter','${d.id}')"><div style="display:flex;align-items:center;gap:12px"><div style="flex:1"><div class="arabic" style="font-size:1.1rem">${d.arabic}</div><div style="font-size:.85rem;color:var(--text-secondary);margin-top:2px">${d[lang]||d.tr}</div></div><div style="text-align:right;flex-shrink:0"><div style="font-weight:700;color:var(--accent)">${cnt}/${d.target}</div><div style="width:60px;height:4px;background:var(--outline);border-radius:2px;margin-top:4px"><div style="width:${pct}%;height:100%;background:var(--accent);border-radius:2px;transition:width .3s"></div></div></div></div></div>`}).join('')}`;
@@ -723,7 +1406,7 @@ function renderDhikrCounter(id){
     const pct=Math.min(1,cnt/d.target);
     const r=90;const circ=2*Math.PI*r;const offset=circ*(1-pct);
     const done=cnt>=d.target;
-    c.innerHTML=`<div class="header" style="padding:0;margin-bottom:12px"><button class="header-btn" onclick="navigate('dhikr')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg></button><h1>${d[lang]||d.tr}</h1><button class="header-btn" onclick="resetDhikr('${id}')" title="${s('reset')}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1,4 1,10 7,10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></button></div><div style="text-align:center"><div class="arabic" style="font-size:1.3rem;margin-bottom:16px">${d.arabic}</div><div class="dhikr-tap" id="dhikrTap"><svg class="dhikr-progress" viewBox="0 0 220 220"><circle cx="110" cy="110" r="${r}" fill="none" stroke="var(--outline)" stroke-width="8"/><circle cx="110" cy="110" r="${r}" fill="none" stroke="var(--accent)" stroke-width="8" stroke-linecap="round" stroke-dasharray="${circ}" stroke-dashoffset="${offset}" transform="rotate(-90 110 110)"/></svg><div class="count">${cnt}</div><div class="label">${done?s('completed'):s('tap_to_count')}</div></div><div style="color:var(--text-secondary);margin-top:8px;font-size:.9rem">${s('dhikr')}: ${d.target}</div></div>`;
+    c.innerHTML=`<div class="header" style="padding:0;margin-bottom:12px"><button class="header-btn" onclick="navigate('dhikr')"><i class="fa-solid fa-chevron-left"></i></button><h1>${d[lang]||d.tr}</h1><button class="header-btn" onclick="resetDhikr('${id}')" title="${s('reset')}"><i class="fa-solid fa-rotate-right"></i></button></div><div style="text-align:center"><div class="arabic" style="font-size:1.3rem;margin-bottom:16px">${d.arabic}</div><div class="dhikr-tap" id="dhikrTap"><svg class="dhikr-progress" viewBox="0 0 220 220"><circle cx="110" cy="110" r="${r}" fill="none" stroke="var(--outline)" stroke-width="8"/><circle cx="110" cy="110" r="${r}" fill="none" stroke="var(--accent)" stroke-width="8" stroke-linecap="round" stroke-dasharray="${circ}" stroke-dashoffset="${offset}" transform="rotate(-90 110 110)"/></svg><div class="count">${cnt}</div><div class="label">${done?s('completed'):s('tap_to_count')}</div></div><div style="color:var(--text-secondary);margin-top:8px;font-size:.9rem">${s('dhikr')}: ${d.target}</div></div>`;
     document.getElementById('dhikrTap').addEventListener('click',()=>{
       cnt++;
       counts[id]=cnt;
@@ -751,7 +1434,7 @@ function renderSpecialDays(){
   const c=document.getElementById('specialDaysContent');
   const today=new Date();today.setHours(0,0,0,0);
   const months=lang==='tr'?['Oca','Şub','Mar','Nis','May','Haz','Tem','Ağu','Eyl','Eki','Kas','Ara']:lang==='en'?['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']:['ينا','فبر','مار','أبر','ماي','يون','يول','أغس','سبت','أكت','نوف','ديس'];
-  c.innerHTML=`<div class="header" style="padding:0;margin-bottom:12px"><button class="header-btn" onclick="navigate('home')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg></button><h1>${s('special_days')}</h1><div style="width:44px"></div></div>${SPECIAL_DAYS.map(d=>{
+  c.innerHTML=`<div class="header" style="padding:0;margin-bottom:12px"><button class="header-btn" onclick="navigate('home')"><i class="fa-solid fa-chevron-left"></i></button><h1>${s('special_days')}</h1><div style="width:44px"></div></div>${SPECIAL_DAYS.map(d=>{
     const dt=new Date(d.date+'T00:00:00');
     const diff=Math.ceil((dt-today)/(86400000));
     const isPast=diff<0;
@@ -768,9 +1451,9 @@ function renderSpecialDays(){
 function renderBookmarks(){
   const c=document.getElementById('bookmarksContent');
   const bk=JSON.parse(localStorage.getItem('sahur_bookmarks')||'[]');
-  c.innerHTML=`<div class="header" style="padding:0;margin-bottom:12px"><button class="header-btn" onclick="navigate('home')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg></button><h1>${s('bookmarks')}</h1><div style="width:44px"></div></div>`;
-  if(!bk.length){c.innerHTML+=`<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg><p>${s('no_results')}</p></div>`;return}
-  c.innerHTML+=bk.map((b,i)=>`<div class="bookmark-item"><span class="badge">${b.type==='verse'?s('daily_verse'):s('daily_hadith')}</span><button class="bk-delete" onclick="deleteBookmark(${i})"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button><div class="bk-title">${b.data.source||b.data.reference||''}</div><div class="bk-content">${b.data.text||b.data.translation||''}</div></div>`).join('');
+  c.innerHTML=`<div class="header" style="padding:0;margin-bottom:12px"><button class="header-btn" onclick="navigate('home')"><i class="fa-solid fa-chevron-left"></i></button><h1>${s('bookmarks')}</h1><div style="width:44px"></div></div>`;
+  if(!bk.length){c.innerHTML+=`<div class="empty-state"><i class="fa-regular fa-bookmark" style="font-size:2rem"></i><p>${s('no_results')}</p></div>`;return}
+  c.innerHTML+=bk.map((b,i)=>`<div class="bookmark-item"><span class="badge">${b.type==='verse'?s('daily_verse'):s('daily_hadith')}</span><button class="bk-delete" onclick="deleteBookmark(${i})"><i class="fa-solid fa-xmark"></i></button><div class="bk-title">${b.data.source||b.data.reference||''}</div><div class="bk-content">${b.data.text||b.data.translation||''}</div></div>`).join('');
 }
 
 function bookmarkItem(type,dataStr){
@@ -792,7 +1475,7 @@ function deleteBookmark(idx){
 async function renderImsakiye(){
   const c=document.getElementById('imsakiyeContent');
   if(!loc){c.innerHTML=`<p style="text-align:center;padding:40px;color:var(--text-secondary)">${s('error')}</p>`;return}
-  c.innerHTML=`<div class="header" style="padding:0;margin-bottom:12px"><button class="header-btn" onclick="navigate('home')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg></button><h1>${s('imsakiye')}</h1><div style="width:44px"></div></div><div class="loading"><div class="spinner"></div>${s('loading')}</div>`;
+  c.innerHTML=`<div class="header" style="padding:0;margin-bottom:12px"><button class="header-btn" onclick="navigate('home')"><i class="fa-solid fa-chevron-left"></i></button><h1>${s('imsakiye')}</h1><div style="width:44px"></div></div><div class="loading"><div class="spinner"></div>${s('loading')}</div>`;
   try{
     const now=new Date();
     const data=await apiFetch(`/prayers/monthly?lat=${loc.lat}&lon=${loc.lon}&year=${now.getFullYear()}&month=${now.getMonth()+1}&method=Turkey&madhab=shafi`);
@@ -800,7 +1483,7 @@ async function renderImsakiye(){
     const todayDate=now.getDate();
     const pKeys=['fajr','sunrise','dhuhr','asr','maghrib','isha'];
     const pLabels=[s('fajr'),s('sunrise'),s('dhuhr'),s('asr'),s('maghrib'),s('isha')];
-    c.innerHTML=`<div class="header" style="padding:0;margin-bottom:12px"><button class="header-btn" onclick="navigate('home')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg></button><h1>${s('imsakiye')} - ${GREG_MONTHS[lang][now.getMonth()]}</h1><div style="width:44px"></div></div><div style="overflow-x:auto"><table class="imsakiye-table"><thead><tr><th>${lang==='tr'?'Gün':lang==='en'?'Day':'يوم'}</th>${pLabels.map(l=>`<th>${l}</th>`).join('')}</tr></thead><tbody>${days.map(d=>{
+    c.innerHTML=`<div class="header" style="padding:0;margin-bottom:12px"><button class="header-btn" onclick="navigate('home')"><i class="fa-solid fa-chevron-left"></i></button><h1>${s('imsakiye')} - ${GREG_MONTHS[lang][now.getMonth()]}</h1><div style="width:44px"></div></div><div style="overflow-x:auto"><table class="imsakiye-table"><thead><tr><th>${lang==='tr'?'Gün':lang==='en'?'Day':'يوم'}</th>${pLabels.map(l=>`<th>${l}</th>`).join('')}</tr></thead><tbody>${days.map(d=>{
       const dt=new Date(d.date);
       const day=dt.getDate();
       const isToday=day===todayDate;
@@ -812,13 +1495,137 @@ async function renderImsakiye(){
 /* TESBIHAT */
 function renderTesbihat(){
   const c=document.getElementById('tesbihatContent');
-  c.innerHTML=`<div class="header" style="padding:0;margin-bottom:12px"><button class="header-btn" onclick="navigate('home')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg></button><h1>${s('tesbihat')}</h1><div style="width:44px"></div></div>
+  c.innerHTML=`<div class="header" style="padding:0;margin-bottom:12px"><button class="header-btn" onclick="navigate('home')"><i class="fa-solid fa-chevron-left"></i></button><h1>${s('tesbihat')}</h1><div style="width:44px"></div></div>
 <div class="card card-accent"><div class="arabic" style="text-align:center;font-size:1.2rem;margin-bottom:8px">سُبْحَانَ اللهِ</div><div style="text-align:center;color:var(--text-secondary)">Sübhanallah × 33</div></div>
 <div class="card card-accent"><div class="arabic" style="text-align:center;font-size:1.2rem;margin-bottom:8px">الْحَمْدُ لِلَّهِ</div><div style="text-align:center;color:var(--text-secondary)">Elhamdülillah × 33</div></div>
 <div class="card card-accent"><div class="arabic" style="text-align:center;font-size:1.2rem;margin-bottom:8px">اللهُ أَكْبَرُ</div><div style="text-align:center;color:var(--text-secondary)">Allahü Ekber × 33</div></div>
 <div class="card"><div class="arabic" style="text-align:center;font-size:1.1rem;margin-bottom:8px">لَا إِلَٰهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ</div><div style="text-align:center;color:var(--text-secondary);font-size:.85rem">La ilahe illallahu vahdehu la serike leh, lehul mulku ve lehul hamdu ve huve ala kulli sey'in kadir</div></div>
 <button class="btn btn-primary" style="width:100%;margin-top:8px" onclick="navigate('dhikr')">${s('dhikr')}</button>`;
 }
+
+/* SHARE */
+async function shareContent(text){
+  if(navigator.share){try{await navigator.share({text});return}catch(e){}}
+  try{await navigator.clipboard.writeText(text);showToast(s('copied'))}catch(e){}
+}
+function showToast(msg){
+  const t=document.createElement('div');
+  t.style.cssText='position:fixed;bottom:120px;left:50%;transform:translateX(-50%);background:var(--surface-solid);border:1px solid var(--outline);color:var(--text-primary);padding:10px 20px;border-radius:12px;font-size:.85rem;font-weight:700;z-index:999;animation:pageIn .3s ease;box-shadow:0 4px 20px rgba(0,0,0,.3)';
+  t.textContent=msg;document.body.appendChild(t);
+  setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .3s';setTimeout(()=>t.remove(),300)},1800);
+}
+
+/* DUAS */
+function renderDuas(){
+  const c=document.getElementById('duasContent');
+  let selectedCat='';
+  const render=(cat)=>{
+    selectedCat=cat;
+    const cats=DUAS_DATA.map(d=>d.cat);
+    const filtered=cat?DUAS_DATA.filter(d=>d.cat===cat):DUAS_DATA;
+    c.innerHTML=`<div class="header" style="padding:0;margin-bottom:12px"><button class="header-btn" onclick="navigate('home')"><i class="fa-solid fa-chevron-left"></i></button><h1>${s('duas')}</h1><div style="width:44px"></div></div>
+    <div style="display:flex;gap:8px;overflow-x:auto;margin-bottom:14px;padding-bottom:4px">
+    <button class="chip ${!cat?'active':''}" onclick="document.querySelector('[data-duacat=\\'all\\']').click()" data-duacat="all">${s('all')}</button>
+    ${cats.map(c=>`<button class="chip ${selectedCat===c?'active':''}" data-duacat="${c}">${s(c)}</button>`).join('')}
+    </div>
+    <div class="stagger">${filtered.map(group=>group.items.map(d=>`<div class="dua-card">
+    <div class="dua-title">${s(group.cat)}</div>
+    <div class="dua-arabic">${d.arabic}</div>
+    <div class="dua-trans">${d[lang]||d.tr}</div>
+    <div class="dua-translit">${d.translit}</div>
+    <div style="display:flex;gap:12px;margin-top:10px">
+    <button class="share-btn" onclick="shareContent('${d.arabic}\\n\\n${(d[lang]||d.tr).replace(/'/g,"\\'")}')"><i class="fa-solid fa-share-from-square" style="font-size:0.75rem"></i> ${s('share')}</button>
+    <button class="share-btn" onclick="bookmarkItem('dua',${JSON.stringify(JSON.stringify({arabic:d.arabic,text:d[lang]||d.tr,source:s(group.cat)}))})">+ ${s('bookmarks')}</button>
+    </div></div>`).join('')).join('')}</div>`;
+    c.querySelectorAll('[data-duacat]').forEach(btn=>{
+      btn.addEventListener('click',()=>render(btn.dataset.duacat==='all'?'':btn.dataset.duacat));
+    });
+  };
+  render('');
+}
+
+/* PRAYER LOG */
+function getPrayerLogKey(){const d=new Date();return'sahur_plog_'+d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()}
+function getPrayerLog(){return JSON.parse(localStorage.getItem(getPrayerLogKey())||'{}');}
+function togglePrayerLogged(name){
+  const log=getPrayerLog();
+  log[name]=!log[name];
+  localStorage.setItem(getPrayerLogKey(),JSON.stringify(log));
+  if(navigator.vibrate)navigator.vibrate(20);
+  renderPrayerLogHome();
+  if(currentPage==='prayer-log')renderPrayerLog();
+}
+function renderPrayerLogHome(){
+  const el=document.getElementById('prayerLogHome');
+  if(!el)return;
+  const log=getPrayerLog();
+  const prayers=['fajr','dhuhr','asr','maghrib','isha'];
+  const done=prayers.filter(p=>log[p]).length;
+  el.innerHTML=`<div class="card" style="padding:14px"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><span style="font-weight:800;font-size:.9rem">${s('prayer_log')}</span><span style="font-size:.8rem;color:var(--accent);font-weight:700">${done}/5</span></div><div class="prayer-log-grid">${prayers.map(p=>`<button class="prayer-log-item ${log[p]?'done':''}" onclick="togglePrayerLogged('${p}')">${log[p]?'<i class="fa-solid fa-circle-check"></i>':'<i class="fa-regular fa-circle"></i>'}${s(p)}</button>`).join('')}</div></div>`;
+}
+function renderPrayerLog(){
+  const c=document.getElementById('prayerLogContent');
+  const log=getPrayerLog();
+  const prayers=['fajr','dhuhr','asr','maghrib','isha'];
+  const weekDays=[];
+  for(let i=6;i>=0;i--){
+    const d=new Date();d.setDate(d.getDate()-i);
+    const key='sahur_plog_'+d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+    const dayLog=JSON.parse(localStorage.getItem(key)||'{}');
+    const dayNames=lang==='tr'?['Paz','Pzt','Sal','Çar','Per','Cum','Cmt']:lang==='en'?['Sun','Mon','Tue','Wed','Thu','Fri','Sat']:['أحد','إثن','ثلا','أرب','خمي','جمع','سبت'];
+    weekDays.push({name:dayNames[d.getDay()],date:d.getDate(),log:dayLog,isToday:i===0});
+  }
+  c.innerHTML=`<div class="header" style="padding:0;margin-bottom:12px"><button class="header-btn" onclick="navigate('home')"><i class="fa-solid fa-chevron-left"></i></button><h1>${s('prayer_log')}</h1><div style="width:44px"></div></div>
+  <div class="card" style="margin-bottom:16px"><div style="font-weight:800;margin-bottom:12px">${s('today')}</div><div class="prayer-log-grid">${prayers.map(p=>`<button class="prayer-log-item ${log[p]?'done':''}" onclick="togglePrayerLogged('${p}')" style="min-width:62px">${log[p]?'<i class="fa-solid fa-circle-check"></i>':'<i class="fa-regular fa-circle"></i>'}${s(p)}</button>`).join('')}</div></div>
+  <div class="card"><div style="font-weight:800;margin-bottom:12px">${lang==='tr'?'Haftalık Görünüm':lang==='en'?'Weekly View':'العرض الأسبوعي'}</div>
+  <div style="display:flex;gap:4px;justify-content:space-between">${weekDays.map(d=>{
+    const cnt=prayers.filter(p=>d.log[p]).length;
+    return`<div style="text-align:center;flex:1"><div style="font-size:.7rem;font-weight:700;color:${d.isToday?'var(--accent)':'var(--text-secondary)'}">${d.name}</div><div style="font-size:.85rem;font-weight:800;margin:4px 0">${d.date}</div><div style="width:28px;height:28px;margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;${cnt===5?'background:var(--success);color:#fff':cnt>0?'background:var(--accent-glow);color:var(--accent)':'background:var(--surface-elevated);color:var(--text-tertiary)'}">${cnt}</div></div>`}).join('')}</div></div>`;
+}
+
+/* UPCOMING EVENT */
+function renderUpcomingEvent(){
+  const el=document.getElementById('upcomingEvent');
+  if(!el)return;
+  const now=new Date();now.setHours(0,0,0,0);
+  const upcoming=SPECIAL_DAYS.find(d=>{const dt=new Date(d.date+'T00:00:00');return dt>=now});
+  if(!upcoming){el.innerHTML='';return}
+  const dt=new Date(upcoming.date+'T00:00:00');
+  const diff=Math.ceil((dt-now)/86400000);
+  const label=lang==='tr'?'Yaklaşan':lang==='en'?'Upcoming':'قادم';
+  el.innerHTML=`<div class="upcoming-inner" onclick="navigate('special-days')">
+    <div class="up-icon"><i class="fa-solid fa-star" style="font-size:1rem"></i></div>
+    <div class="up-info"><div class="up-label">${label}</div><div class="up-name">${upcoming.name[lang]||upcoming.name.tr}</div></div>
+    <div class="up-days">${diff}</div>
+    <i class="fa-solid fa-chevron-right" style="font-size:0.8rem;color:var(--text-tertiary)"></i>
+  </div>`;
+}
+
+/* RAMADAN BANNER */
+function renderRamadanBanner(){
+  const el=document.getElementById('ramadanBanner');
+  if(!el)return;
+  const now=new Date();now.setHours(0,0,0,0);
+  const start=new Date('2026-02-19T00:00:00');
+  const end=new Date('2026-03-20T00:00:00');
+  if(now>=start&&now<end){
+    const day=Math.floor((now-start)/86400000)+1;
+    el.innerHTML=`<div class="ramadan-banner"><div class="rb-title">☪ Ramadan 1447</div><div class="rb-day">${day}/30</div><div class="rb-label">${s('ramadan_day')}</div></div>`;
+  }
+}
+
+/* PWA INSTALL */
+let deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();deferredPrompt=e;
+  if(!localStorage.getItem('sahur_dismiss_install')){
+    document.getElementById('installText').textContent=s('install');
+    document.getElementById('installBtn').textContent=s('add');
+    document.getElementById('installBanner').classList.add('show');
+  }
+});
+function installPWA(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(()=>{deferredPrompt=null;document.getElementById('installBanner').classList.remove('show')})}}
+function dismissInstall(){document.getElementById('installBanner').classList.remove('show');localStorage.setItem('sahur_dismiss_install','1')}
 
 /* LOCATION */
 function showLocationModal(){
@@ -838,19 +1645,19 @@ function searchLocation(q,target){
       const data=await apiFetch(`/locations/search?q=${encodeURIComponent(q)}&lang=${lang}&limit=10`,true);
       const results=data.data||data||[];
       const el=document.getElementById(target);
-      el.innerHTML=results.map(r=>`<div style="padding:12px;border-bottom:1px solid var(--outline);cursor:pointer" onclick="selectLocation(${JSON.stringify(JSON.stringify(r))})">${r.name||r.city||''}, ${r.country||''}</div>`).join('')||`<p style="padding:12px;color:var(--text-secondary)">${s('no_results')}</p>`;
+      el.innerHTML=results.map(r=>`<div style="padding:12px;border-bottom:1px solid var(--outline);cursor:pointer" onclick="selectLocation(${JSON.stringify(JSON.stringify(r))})">${t(r.name)||t(r.city)||''}, ${t(r.country)||''}</div>`).join('')||`<p style="padding:12px;color:var(--text-secondary)">${s('no_results')}</p>`;
     }catch(e){}
   },300);
 }
 
 function selectLocation(dataStr){
   const data=JSON.parse(dataStr);
-  loc={name:data.name||data.city||'',lat:data.lat||data.latitude,lon:data.lon||data.longitude};
+  loc={name:t(data.name)||t(data.city)||'',lat:data.lat||data.latitude,lon:data.lon||data.longitude};
   localStorage.setItem('sahur_location',JSON.stringify(loc));
   closeLocationModal();
   document.getElementById('onboarding').style.display='none';
   document.getElementById('app').style.display='block';
-  document.getElementById('bottomNav').style.display='flex';
+  document.getElementById('bottomNav').style.display='';
   handleRoute();
 }
 
@@ -860,18 +1667,18 @@ function requestGeo(){
     try{
       const data=await apiFetch(`/locations/reverse?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&lang=${lang}`,true);
       const r=data.data||data;
-      loc={name:r.name||r.city||r.district||'',lat:pos.coords.latitude,lon:pos.coords.longitude};
+      loc={name:t(r.name)||t(r.city)||t(r.district)||'',lat:pos.coords.latitude,lon:pos.coords.longitude};
       localStorage.setItem('sahur_location',JSON.stringify(loc));
       document.getElementById('onboarding').style.display='none';
       document.getElementById('app').style.display='block';
-      document.getElementById('bottomNav').style.display='flex';
+      document.getElementById('bottomNav').style.display='';
       handleRoute();
     }catch(e){
       loc={name:'Current Location',lat:pos.coords.latitude,lon:pos.coords.longitude};
       localStorage.setItem('sahur_location',JSON.stringify(loc));
       document.getElementById('onboarding').style.display='none';
       document.getElementById('app').style.display='block';
-      document.getElementById('bottomNav').style.display='flex';
+      document.getElementById('bottomNav').style.display='';
       handleRoute();
     }
   },()=>{showLocationModal()});
@@ -881,6 +1688,8 @@ function requestGeo(){
 function init(){
   applyTheme();
   applyLang();
+  // Hide splash after delay
+  setTimeout(()=>{const sp=document.getElementById('splash');if(sp){sp.classList.add('hide');setTimeout(()=>sp.remove(),400)}},800);
   if(!loc){
     document.getElementById('onboarding').style.display='flex';
     document.getElementById('obText').textContent=lang==='tr'?'Namaz vakitleri için konumunuzu seçin':lang==='en'?'Select your location for prayer times':'اختر موقعك لأوقات الصلاة';
@@ -888,7 +1697,7 @@ function init(){
     document.getElementById('obSearch').textContent=lang==='tr'?'🔍 Şehir Ara':lang==='en'?'🔍 Search City':'🔍 ابحث عن مدينة';
   }else{
     document.getElementById('app').style.display='block';
-    document.getElementById('bottomNav').style.display='flex';
+    document.getElementById('bottomNav').style.display='';
     handleRoute();
   }
 }
